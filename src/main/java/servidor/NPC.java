@@ -2,6 +2,7 @@ package servidor;
 
 import comandos.Atacar;
 import comandos.FinalizarBatalla;
+import estados.Estado;
 import mensajeria.PaqueteAtacar;
 import mensajeria.PaqueteBatalla;
 import mensajeria.PaqueteFinalizarBatalla;
@@ -106,6 +107,7 @@ public class NPC {
 			Servidor.getNPCsCargados().remove(this.getId());
 		}
 		if (this.persistencia == 1) { // "Revive" cerca.
+			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
 			this.setPa(null);
 			this.setPb(null);
 			this.setPfb(null);
@@ -127,9 +129,9 @@ public class NPC {
 			Servidor.log.append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa " + this.pp.getMapa() + "." + System.lineSeparator());
 			pm.setPosX(ModuloNPC.baldosasACoordenadas(j, i)[0]);
 			pm.setPosY(ModuloNPC.baldosasACoordenadas(j, i)[1]);
-			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(1);
 		}
 		if (this.persistencia == 2) { // "Revive" lejos.
+			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
 			this.setPa(null);
 			this.setPb(null);
 			this.setPfb(null);
@@ -149,7 +151,6 @@ public class NPC {
 			Servidor.log.append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa " + this.pp.getMapa() + "." + System.lineSeparator());
 			pm.setPosX(ModuloNPC.baldosasACoordenadas(j, i)[0]);
 			pm.setPosY(ModuloNPC.baldosasACoordenadas(j, i)[1]);
-			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(1);
 		}
 	}
 
