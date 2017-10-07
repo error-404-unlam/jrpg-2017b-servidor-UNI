@@ -22,3 +22,8 @@ Troll
 10 // Inteligencia
 5 // Nivel
 50 // Experiencia
+Persistencia:
+1 // jMinB
+1 // jMaxB
+10 // iMinB
+10 // jMaxB

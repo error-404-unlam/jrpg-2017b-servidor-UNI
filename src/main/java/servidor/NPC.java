@@ -1,5 +1,10 @@
 package servidor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
 import comandos.Atacar;
 import comandos.FinalizarBatalla;
 import estados.Estado;
@@ -106,7 +111,7 @@ public class NPC {
 			Servidor.getUbicacionPersonajes().remove(this.getId());
 			Servidor.getNPCsCargados().remove(this.getId());
 		}
-		if (this.persistencia == 1) { // "Revive" cerca.
+		if (this.persistencia == 1) { // "Revive" en otro rectángulo específicado en el archivo.
 			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
 			this.setPa(null);
 			this.setPb(null);
@@ -117,20 +122,55 @@ public class NPC {
 			int j = ModuloNPC.coordenadasABaldosas(x, y)[0];
 			int i = ModuloNPC.coordenadasABaldosas(x, y)[1];
 
-			// Se mueve en diagonal.
-			if (j < 10) {
-				j = 17;
-				i = 1;
-			} else {
-				j = 1;
-				i = 10;
+			// Se mueve según especificado en archivo de texto.
+			Scanner npcFile = null;
+			try {
+				int idFile = this.id * -1;
+				npcFile = new Scanner(new File("npcs//" + idFile + ".txt"));
+			} catch (FileNotFoundException e) {
+				Servidor.getPersonajesConectados().remove(this.getId());
+				Servidor.getUbicacionPersonajes().remove(this.getId());
+				Servidor.getNPCsCargados().remove(this.getId());
+				return;
 			}
-
+			for (int k = 0; k < 5; k++) {
+				npcFile.nextLine();
+			}
+			int jMin = npcFile.nextInt();
+			npcFile.nextLine();
+			int jMax = npcFile.nextInt();
+			npcFile.nextLine();
+			int iMin = npcFile.nextInt();
+			npcFile.nextLine();
+			int iMax = npcFile.nextInt();
+			for (int k = 0; k < 17; k++) {
+				npcFile.nextLine();
+			}
+			int jMinB = npcFile.nextInt();
+			npcFile.nextLine();
+			int jMaxB = npcFile.nextInt();
+			npcFile.nextLine();
+			int iMinB = npcFile.nextInt();
+			npcFile.nextLine();
+			int iMaxB = npcFile.nextInt();
+			if (j >= jMin && j <= jMax && i >= iMin && i <= iMax) { // Si está en el primer rectángulo, se mueve al segundo
+				int jNuevo = ThreadLocalRandom.current().nextInt(jMinB, jMaxB + 1);
+				int iNuevo = ThreadLocalRandom.current().nextInt(iMinB, iMaxB + 1);
+				j = jNuevo;
+				i = iNuevo;
+			} else { // Si está en el segundo rectángulo, se mueve al primero
+				int jNuevo = ThreadLocalRandom.current().nextInt(jMin, jMax + 1);
+				int iNuevo = ThreadLocalRandom.current().nextInt(iMin, iMax + 1);
+				j = jNuevo;
+				i = iNuevo;
+			}
+			
 			Servidor.log.append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa " + this.pp.getMapa() + "." + System.lineSeparator());
 			pm.setPosX(ModuloNPC.baldosasACoordenadas(j, i)[0]);
 			pm.setPosY(ModuloNPC.baldosasACoordenadas(j, i)[1]);
+			npcFile.close();
 		}
-		if (this.persistencia == 2) { // "Revive" lejos.
+		if (this.persistencia == 2) { // "Revive" en la otra mitad del mapa.
 			Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
 			this.setPa(null);
 			this.setPb(null);
