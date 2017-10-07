@@ -1,7 +1,7 @@
 -2 // ID
 1 // Dificultad
 1 // Movimiento
-2 // Persistencia
+3 // Persistencia
 PaqueteMovimiento:
 25 // jMin
 27 // jMax
