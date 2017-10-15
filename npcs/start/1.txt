@@ -1,16 +1,16 @@
--2 // ID
+-1 // ID
 1 // Dificultad
 1 // Movimiento
 2 // Persistencia
 PaqueteMovimiento:
-25 // jMin
-27 // jMax
-3 // iMin
-5 // jMax
+17 // jMin
+17 // jMax
+1 // iMin
+1 // jMax
 5 // Direccion
 0 // Frame
 PaquetePersonaje:
-2 // Mapa
+1 // Mapa
 1 // Estado
 Asesino
 Orco
@@ -22,3 +22,8 @@ Troll
 10 // Inteligencia
 5 // Nivel
 50 // Experiencia
+Persistencia:
+1 // jMinB
+1 // jMaxB
+10 // iMinB
+10 // jMaxB
