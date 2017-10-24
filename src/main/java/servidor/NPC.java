@@ -43,7 +43,7 @@ public class NPC {
 	String path;
 
 	public NPC(String path) throws IOException { // Crea un NPC a partir de la dirección de un archivo. 
-		NPC npc = this;
+		final NPC npc = this;
 		
 		// Abre el archivo.
 		Scanner npcFile = new Scanner(new File(path));
