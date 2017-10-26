@@ -385,7 +385,7 @@ public class NPC {
 
 				// Intentar atacar
 				if (enemigo.getSalud() > 0) {
-					PaqueteAtacar pa = new PaqueteAtacar(personaje.getIdPersonaje(), enemigo.getIdPersonaje(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
+					PaqueteAtacar pa = new PaqueteAtacar(personaje.getIdPersonaje(), enemigo.getIdPersonaje(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDanio(), enemigo.getCasta().getProbabilidadEvitarDanio());
 					npc.setPa(pa);
 				} else {
 					PaqueteFinalizarBatalla pfb = new PaqueteFinalizarBatalla();
