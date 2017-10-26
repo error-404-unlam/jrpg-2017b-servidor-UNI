@@ -181,25 +181,15 @@ public class Servidor extends Thread {
 	}
 
 	public static boolean mensajeAUsuario(PaqueteMensaje pqm) {
-		boolean result = true;
-		boolean noEncontro = true;
+		boolean result = false;
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
-			if (noEncontro && (!personaje.getValue().getNombre().equals(pqm.getUserReceptor()))) {
-				result = false;
-			} else {
+			String nom = personaje.getValue().getNombre();
+			if (personaje.getValue().getNombre().equals(pqm.getUserReceptor())) {
+				Servidor.log.append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
 				result = true;
-				noEncontro = false;
 			}
-		}
-		// Si existe inicio sesion
-		if (result) {
-			Servidor.log.append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
-			return true;
-		} else {
-			// Si no existe informo y devuelvo false
-			Servidor.log.append("El mensaje para " + pqm.getUserReceptor() + " no se envió, ya que se encuentra desconectado." + System.lineSeparator());
-			return false;
-		}
+		}	
+		return result;
 	}
 
 	public static boolean mensajeAAll(int contador) {
