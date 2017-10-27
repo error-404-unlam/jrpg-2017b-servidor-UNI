@@ -373,8 +373,8 @@ public class NPC {
 
 			if (npc.getPp().getEstado() == Estado.estadoBatalla && npc.getPb() != null && npc.getPb().isMiTurno()) { // Si es mi turno
 				// Calcular daño recibido
-				int daño = personaje.getSalud() - npc.getPa().getNuevaSaludEnemigo();
-				personaje.reducirSalud(daño); // Actualiza salud del NPC.
+				int danio = personaje.getSalud() - npc.getPa().getNuevaSaludEnemigo();
+				personaje.reducirSalud(danio); // Actualiza salud del NPC.
 				// Calcular agotamiento del enemigo
 				int agotamiento = enemigo.getEnergia() - npc.getPa().getNuevaEnergiaPersonaje();
 				enemigo.reducirEnergia(agotamiento); // Actualiza energía del enemigo.
@@ -385,7 +385,7 @@ public class NPC {
 
 				// Intentar atacar
 				if (enemigo.getSalud() > 0) {
-					PaqueteAtacar pa = new PaqueteAtacar(personaje.getIdPersonaje(), enemigo.getIdPersonaje(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDanio(), enemigo.getCasta().getProbabilidadEvitarDanio());
+					PaqueteAtacar pa = new PaqueteAtacar(personaje.getIdPersonaje(), enemigo.getIdPersonaje(), personaje.getSalud(), personaje.getEnergia(), enemigo.getSalud(), enemigo.getEnergia(), personaje.getDefensa(), enemigo.getDefensa(), personaje.getCasta().getProbabilidadEvitarDaño(), enemigo.getCasta().getProbabilidadEvitarDaño());
 					npc.setPa(pa);
 				} else {
 					PaqueteFinalizarBatalla pfb = new PaqueteFinalizarBatalla();
