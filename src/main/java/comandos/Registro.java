@@ -14,7 +14,7 @@ public class Registro extends ComandosServer {
 		Paquete paqueteSv = new Paquete(null, 0);
 		paqueteSv.setComando(Comando.REGISTRO);
 
-		escuchaCliente.setPaqueteUsuario((PaqueteUsuario) (gson.fromJson(cadenaLeida, PaqueteUsuario.class)).clone());
+        escuchaCliente.setPaqueteUsuario((PaqueteUsuario) (gson.fromJson(cadenaLeida, PaqueteUsuario.class)).clone());
 
 		// Si el usuario se pudo registrar, le envío un mensaje de éxito
 		try {
