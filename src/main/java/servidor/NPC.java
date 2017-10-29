@@ -131,7 +131,7 @@ public class NPC {
         Servidor.getUbicacionPersonajes().put(npc.getId(), npc.getPm());
         Servidor.getPersonajesConectados().put(npc.getId(), npc.getPp());
         Servidor.getNPCsCargados().put(npc.getId(), npc);
-        Servidor.log.append("NPC " + npc.getId() + " creado en coordenadas (" + j + ", " + i + ") del mapa "
+        Servidor.getLog().append("NPC " + npc.getId() + " creado en coordenadas (" + j + ", " + i + ") del mapa "
                 + npc.getPp().getMapa() + "." + System.lineSeparator());
         npcFile.close();
 
@@ -328,7 +328,7 @@ public class NPC {
             i = iNuevo;
         }
 
-        Servidor.log.append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa "
+        Servidor.getLog().append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa "
                 + this.pp.getMapa() + "." + System.lineSeparator());
         pm.setPosX(baldosasACoordenadas(j, i)[0]);
         pm.setPosY(baldosasACoordenadas(j, i)[1]);
@@ -353,7 +353,7 @@ public class NPC {
             j -= Tile.ALTO / 2;
         }
 
-        Servidor.log.append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa "
+        Servidor.getLog().append("NPC " + this.id + " ha revivido en las coordenadas (" + j + ", " + i + ") del mapa "
                 + this.pp.getMapa() + "." + System.lineSeparator());
         pm.setPosX(baldosasACoordenadas(j, i)[0]);
         pm.setPosY(baldosasACoordenadas(j, i)[1]);

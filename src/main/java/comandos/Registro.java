@@ -28,7 +28,7 @@ public class Registro extends ComandosServer {
 				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSv));
 			}
 		} catch (IOException e) {
-			Servidor.log.append("Falló al intentar enviar registro\n");
+			Servidor.getLog().append("Falló al intentar enviar registro\n");//OJO
 		}
 
 	}

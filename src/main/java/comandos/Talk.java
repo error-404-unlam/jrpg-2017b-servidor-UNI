@@ -33,12 +33,12 @@ public class Talk extends ComandosServer {
 						try {
 							conectado.getSalida().writeObject(gson.toJson(paqueteMensaje));
 						} catch (IOException e) {
-							Servidor.log.append("Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
+							Servidor.getLog().append("Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
 						}
 					}
 				}
 			} else {
-				Servidor.log.append("No se envió el mensaje \n");
+				Servidor.getLog().append("No se envió el mensaje \n");
 			}
 		} else {
 			for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
@@ -51,7 +51,7 @@ public class Talk extends ComandosServer {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(paqueteMensaje));
 					} catch (IOException e) {
-						Servidor.log.append("Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
+						Servidor.getLog().append("Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
 					}
 				}
 			}

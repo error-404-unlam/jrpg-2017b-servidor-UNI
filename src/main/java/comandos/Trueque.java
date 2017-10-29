@@ -18,13 +18,13 @@ public class Trueque extends ComandosServer {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(paqueteComerciar));
 				} catch (IOException e) {
-					Servidor.log.append("Falló al intentar enviar trueque a:" + conectado.getPaquetePersonaje().getId() + "\n");
+					Servidor.getLog().append("Falló al intentar enviar trueque a:" + conectado.getPaquetePersonaje().getId() + "\n");
 				}
 			} else if (conectado.getPaquetePersonaje().getId() == paqueteComerciar.getId()) {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(paqueteComerciar));
 				} catch (IOException e) {
-					Servidor.log.append("Falló al intentar enviar trueque a:" + conectado.getPaquetePersonaje().getId() + "\n");
+					Servidor.getLog().append("Falló al intentar enviar trueque a:" + conectado.getPaquetePersonaje().getId() + "\n");
 				}
 			}
 		}

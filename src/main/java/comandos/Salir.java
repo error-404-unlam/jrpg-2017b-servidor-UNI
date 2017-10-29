@@ -15,7 +15,7 @@ public class Salir extends ComandosServer {
 			escuchaCliente.getSalida().close();
 			escuchaCliente.getSocket().close();
 		} catch (IOException e) {
-			Servidor.log.append("Falló al intentar salir \n");
+			Servidor.getLog().append("Falló al intentar salir \n");
 
 		}
 
@@ -23,7 +23,7 @@ public class Salir extends ComandosServer {
 		Servidor.getClientesConectados().remove(this);
 		Paquete paquete = (Paquete) gson.fromJson(cadenaLeida, Paquete.class);
 		// Indico que se desconecto
-		Servidor.log.append(paquete.getIp() + " se ha desconectado." + System.lineSeparator());
+		Servidor.getLog().append(paquete.getIp() + " se ha desconectado." + System.lineSeparator());
 	}
 
 }

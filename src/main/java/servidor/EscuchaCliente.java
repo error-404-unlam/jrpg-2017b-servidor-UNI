@@ -75,10 +75,10 @@ public class EscuchaCliente extends Thread {
 				conectado.salida.writeObject(gson.toJson(paqueteDePersonajes, PaqueteDePersonajes.class));
 			}
 
-			Servidor.log.append(paquete.getIp() + " se ha desconectado." + System.lineSeparator());
+			Servidor.getLog().append(paquete.getIp() + " se ha desconectado." + System.lineSeparator());
 
 		} catch (IOException | ClassNotFoundException e) {
-			Servidor.log.append("Error de conexión al escuchar clientes: ''" + e.getMessage() + "''." + System.lineSeparator());
+			Servidor.getLog().append("Error de conexión al escuchar clientes: ''" + e.getMessage() + "''." + System.lineSeparator());
 		}
 	}
 
