@@ -22,7 +22,7 @@ public class FinalizarBatalla extends ComandosServer {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteFinalizarBatalla()));
 					} catch (IOException e) {
-						Servidor.log.append("Falló al intentar enviar finalizarBatalla a:" + conectado.getPaquetePersonaje().getId() + "\n");
+						Servidor.getLog().append("Falló al intentar enviar finalizarBatalla a:" + conectado.getPaquetePersonaje().getId() + "\n");
 					}
 				}
 			}
@@ -31,8 +31,8 @@ public class FinalizarBatalla extends ComandosServer {
 			Servidor.getNPCsCargados().get(escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo()).setPfb(escuchaCliente.getPaqueteFinalizarBatalla());
 		}
 
-		synchronized (Servidor.atencionConexiones) {
-			Servidor.atencionConexiones.notify();
+		synchronized (Servidor.getAtencionConexiones()) {
+			Servidor.getAtencionConexiones().notify();
 		}
 
 	}
@@ -52,8 +52,8 @@ public class FinalizarBatalla extends ComandosServer {
 			e.printStackTrace();
 		}
 
-		synchronized (Servidor.atencionConexiones) {
-			Servidor.atencionConexiones.notify();
+		synchronized (Servidor.getAtencionConexiones()) {
+			Servidor.getAtencionConexiones().notify();
 		}
 
 	}

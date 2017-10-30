@@ -38,7 +38,7 @@ public class ModuloNPC {
 		try {
 			cantFile = new Scanner(new File("npcs//start//cant.txt"));
 		} catch (FileNotFoundException e1) {
-			Servidor.log.append("No se pudo abrir el archivo cant.txt de la carpeta de NPCs iniciales." + System.lineSeparator());
+			Servidor.getLog().append("No se pudo abrir el archivo cant.txt de la carpeta de NPCs iniciales." + System.lineSeparator());
 			return;
 		}
 		cant = cantFile.nextInt();
@@ -49,7 +49,7 @@ public class ModuloNPC {
 			try {
 				new NPC(path); // El constructor carga el nuevo NPC a las listas del servidor por lo que el objeto no se pierde.
 			} catch (IOException e) {
-				Servidor.log.append("No se pudo cargar el archivo " + nroArchivo + ".txt de la carpeta de NPCs iniciales." + System.lineSeparator());
+				Servidor.getLog().append("No se pudo cargar el archivo " + nroArchivo + ".txt de la carpeta de NPCs iniciales." + System.lineSeparator());
 			}
 			nroArchivo++;
 			cant--;
@@ -68,7 +68,7 @@ public class ModuloNPC {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(pdp));
 					} catch (IOException e) {
-						Servidor.log.append("No se pueden actualizar los PaquetePersonaje de los NPCs en este momento." + System.lineSeparator());
+						Servidor.getLog().append("No se pueden actualizar los PaquetePersonaje de los NPCs en este momento." + System.lineSeparator());
 					}
 				}
 			}
@@ -81,7 +81,7 @@ public class ModuloNPC {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(pdp));
 					} catch (IOException e) {
-						Servidor.log.append("No se pueden actualizar los PaqueteMovimiento de los NPCs en este momento." + System.lineSeparator());
+						Servidor.getLog().append("No se pueden actualizar los PaqueteMovimiento de los NPCs en este momento." + System.lineSeparator());
 					}
 				}
 			}

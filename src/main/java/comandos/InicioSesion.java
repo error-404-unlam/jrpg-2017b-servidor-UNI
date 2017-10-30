@@ -36,7 +36,7 @@ public class InicioSesion extends ComandosServer {
 				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSv));
 			}
 		} catch (IOException e) {
-			Servidor.log.append("Falló al intentar iniciar sesión \n");
+			Servidor.getLog().append("Falló al intentar iniciar sesión \n");
 		}
 
 	}

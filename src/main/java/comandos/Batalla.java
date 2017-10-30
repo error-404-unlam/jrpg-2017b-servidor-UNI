@@ -13,7 +13,7 @@ public class Batalla extends ComandosServer {
 	public void ejecutar() {
 		// Se crea el PaqueteBatalla a partir del EscuchaCliente del retador.
 		escuchaCliente.setPaqueteBatalla((PaqueteBatalla) gson.fromJson(cadenaLeida, PaqueteBatalla.class));
-		Servidor.log.append(escuchaCliente.getPaqueteBatalla().getId() + " quiere batallar con " + escuchaCliente.getPaqueteBatalla().getIdEnemigo() + System.lineSeparator());
+		Servidor.getLog().append(escuchaCliente.getPaqueteBatalla().getId() + " quiere batallar con " + escuchaCliente.getPaqueteBatalla().getIdEnemigo() + System.lineSeparator());
 
 		try {
 			// Se le asigna estadoBatalla en la lista de personajes del servidor a ambos.
@@ -41,11 +41,11 @@ public class Batalla extends ComandosServer {
 				Servidor.getNPCsCargados().get(escuchaCliente.getPaqueteBatalla().getId()).setPb(escuchaCliente.getPaqueteBatalla()); // Se le envía el PaqueteBatalla al NPC.
 			}
 		} catch (IOException e) {
-			Servidor.log.append("Falló al intentar enviar Batalla \n");
+			Servidor.getLog().append("Falló al intentar enviar Batalla \n");
 		}
 
-		synchronized (Servidor.atencionConexiones) {
-			Servidor.atencionConexiones.notify();
+		synchronized (Servidor.getAtencionConexiones()) {
+			Servidor.getAtencionConexiones().notify();
 		}
 
 	}

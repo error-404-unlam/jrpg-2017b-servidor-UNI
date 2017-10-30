@@ -21,7 +21,7 @@ public class ActualizarPersonajeLvl extends ComandosServer {
 			try {
 				conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaquetePersonaje()));
 			} catch (IOException e) {
-				Servidor.log.append("Falló al intentar enviar paquetePersonaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
+				Servidor.getLog().append("Falló al intentar enviar paquetePersonaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
 			}
 		}
 

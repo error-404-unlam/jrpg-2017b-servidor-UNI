@@ -26,30 +26,34 @@ import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 
 public class Servidor extends Thread {
+	// Para personajes con cliente.
+	private static ArrayList<EscuchaCliente> clientesConectados = new ArrayList<>();
+	// Para NPCs. Complementa a clientesConectados ya que los NPCs no tienen
+	// cliente.
+	private static Map<Integer, NPC> npcsCargados = new HashMap<>();
 
-	private static ArrayList<EscuchaCliente> clientesConectados = new ArrayList<>(); // Para personajes con cliente.
-	private static Map<Integer, NPC> NPCsCargados = new HashMap<>(); // Para NPCs. Complementa a clientesConectados ya que los NPCs no tienen cliente.
-
-	private static Map<Integer, PaquetePersonaje> personajesConectados = new HashMap<>(); // Tiene personajes con cliente y NPCs.
-	private static Map<Integer, PaqueteMovimiento> ubicacionPersonajes = new HashMap<>(); // Tiene personajes con cliente y NPCs.
+	// Tiene personajes con cliente y NPCs.
+	private static Map<Integer, PaquetePersonaje> personajesConectados = new HashMap<>();
+	// Tiene personajes con cliente y NPCs.
+	private static Map<Integer, PaqueteMovimiento> ubicacionPersonajes = new HashMap<>();
 
 	private static Thread server;
 
 	private static ServerSocket serverSocket;
 	private static Conector conexionDB;
-	private final int PUERTO = 55050;
+	private final int puerto = 55050;
 
-	private final static int ANCHO = 700;
-	private final static int ALTO = 640;
-	private final static int ALTO_LOG = 520;
-	private final static int ANCHO_LOG = ANCHO - 25;
+	private static final int ANCHO = 700;
+	private static final int ALTO = 640;
+	private static final int ALTO_LOG = 520;
+	private static final int ANCHO_LOG = ANCHO - 25;
 
-	public static JTextArea log;
+	private static JTextArea log;
 
-	public static AtencionConexiones atencionConexiones;
-	public static AtencionMovimientos atencionMovimientos;
+	private static AtencionConexiones atencionConexiones;
+	private static AtencionMovimientos atencionMovimientos;
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		cargarInterfaz();
 	}
 
@@ -69,7 +73,8 @@ public class Servidor extends Thread {
 		log = new JTextArea();
 		log.setEditable(false);
 		log.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		JScrollPane scroll = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scroll = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBounds(10, 40, ANCHO_LOG, ALTO_LOG);
 		ventana.add(scroll);
 
@@ -78,7 +83,7 @@ public class Servidor extends Thread {
 		botonIniciar.setText("Iniciar");
 		botonIniciar.setBounds(220, ALTO - 70, 100, 30);
 		botonIniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(final ActionEvent e) {
 				server = new Thread(new Servidor());
 				server.start();
 				botonIniciar.setEnabled(false);
@@ -91,7 +96,7 @@ public class Servidor extends Thread {
 		botonDetener.setText("Detener");
 		botonDetener.setBounds(360, ALTO - 70, 100, 30);
 		botonDetener.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(final ActionEvent e) {
 				try {
 					server.stop();
 					atencionConexiones.stop();
@@ -106,8 +111,9 @@ public class Servidor extends Thread {
 				} catch (IOException e1) {
 					log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
 				}
-				if (conexionDB != null)
+				if (conexionDB != null){ 
 					conexionDB.close();
+				}
 				botonDetener.setEnabled(false);
 				botonIniciar.setEnabled(true);
 			}
@@ -117,7 +123,7 @@ public class Servidor extends Thread {
 
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent evt) {
+			public void windowClosing(final WindowEvent evt) {
 				if (serverSocket != null) {
 					try {
 						server.stop();
@@ -131,12 +137,13 @@ public class Servidor extends Thread {
 						serverSocket.close();
 						log.append("El servidor se ha detenido." + System.lineSeparator());
 					} catch (IOException e) {
-						log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
+                       log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
 						System.exit(1);
 					}
 				}
-				if (conexionDB != null)
+				if (conexionDB != null){ 
 					conexionDB.close();
+				}
 				System.exit(0);
 			}
 		});
@@ -151,7 +158,7 @@ public class Servidor extends Thread {
 			conexionDB.connect();
 
 			log.append("Iniciando el servidor..." + System.lineSeparator());
-			serverSocket = new ServerSocket(PUERTO);
+			serverSocket = new ServerSocket(puerto);
 			log.append("Creando NPCs..." + System.lineSeparator());
 			ModuloNPC.ejecutar();
 			log.append("Servidor esperando conexiones..." + System.lineSeparator());
@@ -180,29 +187,31 @@ public class Servidor extends Thread {
 		}
 	}
 
-	public static boolean mensajeAUsuario(PaqueteMensaje pqm) {
+	public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
 		boolean result = false;
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
 			String nom = personaje.getValue().getNombre();
 			if (personaje.getValue().getNombre().equals(pqm.getUserReceptor())) {
-				Servidor.log.append(pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
+				Servidor.log.append(
+                       pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
 				result = true;
 			}
-		}	
+		}
 		return result;
 	}
 
-	public static boolean mensajeAAll(int contador) {
+	public static boolean mensajeAAll(final int contador) {
 		boolean result = true;
 		if (personajesConectados.size() != contador + 1) {
-			Servidor.log.append("Uno o más de todos los usuarios se ha desconectado, se ha mandado el mensaje a los demas." + System.lineSeparator());
+			Servidor.log
+                 .append("Uno o más de todos los usuarios se ha desconectado, se ha mandado el mensaje a los demas."
+							+ System.lineSeparator());
 			result = false;
+		} else {
+           Servidor.log.append("Se ha enviado un mensaje a todos los usuarios" + System.lineSeparator());
+			result = true;
 		}
-		else {
-			Servidor.log.append("Se ha enviado un mensaje a todos los usuarios" + System.lineSeparator());
-			result = true;		
-		}
-		return result;		
+		return result;
 	}
 
 	public static ArrayList<EscuchaCliente> getClientesConectados() {
@@ -222,7 +231,32 @@ public class Servidor extends Thread {
 	}
 
 	public static Map<Integer, NPC> getNPCsCargados() {
-		return NPCsCargados;
+		return npcsCargados;
 	}
+
+	public static JTextArea getLog() {
+		return log;
+	}
+
+	public static void setLog(final JTextArea log) {
+		Servidor.log = log;
+	}
+
+	public static AtencionConexiones getAtencionConexiones() {
+		return atencionConexiones;
+	}
+
+	public static void setAtencionConexiones(final AtencionConexiones atencionConexiones) {
+		Servidor.atencionConexiones = atencionConexiones;
+	}
+
+	public static AtencionMovimientos getAtencionMovimientos() {
+		return atencionMovimientos;
+	}
+
+	public static void setAtencionMovimientos(final AtencionMovimientos atencionMovimientos) {
+		Servidor.atencionMovimientos = atencionMovimientos;
+	}
+
 
 }

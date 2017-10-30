@@ -13,8 +13,8 @@ public class Conexion extends ComandosServer {
 		Servidor.getPersonajesConectados().put(escuchaCliente.getPaquetePersonaje().getId(), (PaquetePersonaje) escuchaCliente.getPaquetePersonaje().clone());
 		Servidor.getUbicacionPersonajes().put(escuchaCliente.getPaquetePersonaje().getId(), (PaqueteMovimiento) new PaqueteMovimiento(escuchaCliente.getPaquetePersonaje().getId()).clone());
 
-		synchronized (Servidor.atencionConexiones) {
-			Servidor.atencionConexiones.notify();
+		synchronized (Servidor.getAtencionConexiones()) {
+			Servidor.getAtencionConexiones().notify();
 		}
 
 	}

@@ -39,7 +39,7 @@ public class AtencionConexiones extends Thread {
 					}
 				}
 			} catch (Exception e) {
-				Servidor.log.append("Falló al intentar enviar paqueteDePersonajes\n");
+				Servidor.getLog().append("Falló al intentar enviar paqueteDePersonajes\n");
 			}
 		}
 	}
