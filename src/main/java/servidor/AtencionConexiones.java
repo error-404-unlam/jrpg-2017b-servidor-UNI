@@ -6,41 +6,51 @@ import estados.Estado;
 import mensajeria.Comando;
 import mensajeria.PaqueteDePersonajes;
 
+/**
+ * The Class AtencionConexiones.
+ */
 public class AtencionConexiones extends Thread {
 
-	private final Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
-	public AtencionConexiones() {
+    /**
+     * Instantiates a new atencion conexiones.
+     */
+    public AtencionConexiones() {
 
-	}
+    }
 
-	public void run() {
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
+    public void run() {
 
-		synchronized (this) {
+        synchronized (this) {
 
-			try {
+            try {
 
-				while (true) {
+                while (true) {
 
-					// Espero a que se conecte alguien
-					wait();
+                    // Espero a que se conecte alguien
+                    wait();
 
-					// Le reenvio la conexion a todos
-					for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+                    // Le reenvio la conexion a todos
+                    for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 
-						if (conectado.getPaquetePersonaje().getEstado() != Estado.estadoOffline) {
+                        if (conectado.getPaquetePersonaje().getEstado() != Estado.estadoOffline) {
 
-							PaqueteDePersonajes pdp = (PaqueteDePersonajes) new PaqueteDePersonajes(Servidor.getPersonajesConectados()).clone();
-							pdp.setComando(Comando.CONEXION);
-							synchronized (conectado) {
-								conectado.getSalida().writeObject(gson.toJson(pdp));
-							}
-						}
-					}
-				}
-			} catch (Exception e) {
-				Servidor.getLog().append("Falló al intentar enviar paqueteDePersonajes\n");
-			}
-		}
-	}
+                            PaqueteDePersonajes pdp = (PaqueteDePersonajes) new PaqueteDePersonajes(
+                                    Servidor.getPersonajesConectados()).clone();
+                            pdp.setComando(Comando.CONEXION);
+                            synchronized (conectado) {
+                                conectado.getSalida().writeObject(gson.toJson(pdp));
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Servidor.getLog().append("Falló al intentar enviar paqueteDePersonajes\n");
+            }
+        }
+    }
 }

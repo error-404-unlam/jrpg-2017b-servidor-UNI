@@ -3,21 +3,32 @@ package comandos;
 import mensajeria.PaqueteMovimiento;
 import servidor.Servidor;
 
+/**
+ * The Class Movimiento.
+ */
 public class Movimiento extends ComandosServer {
 
-	@Override
-	public void ejecutar() {
-		escuchaCliente.setPaqueteMovimiento((PaqueteMovimiento) (gson.fromJson((String) cadenaLeida, PaqueteMovimiento.class)));
+    /* (non-Javadoc)
+     * @see mensajeria.Comando#ejecutar()
+     */
+    @Override
+    public void ejecutar() {
+        escuchaCliente.setPaqueteMovimiento(
+                (PaqueteMovimiento) (gson.fromJson((String) cadenaLeida, PaqueteMovimiento.class)));
 
-		Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje()).setPosX(escuchaCliente.getPaqueteMovimiento().getPosX());
-		Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje()).setPosY(escuchaCliente.getPaqueteMovimiento().getPosY());
-		Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje()).setDireccion(escuchaCliente.getPaqueteMovimiento().getDireccion());
-		Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje()).setFrame(escuchaCliente.getPaqueteMovimiento().getFrame());
+        Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje())
+                .setPosX(escuchaCliente.getPaqueteMovimiento().getPosX());
+        Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje())
+                .setPosY(escuchaCliente.getPaqueteMovimiento().getPosY());
+        Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje())
+                .setDireccion(escuchaCliente.getPaqueteMovimiento().getDireccion());
+        Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje())
+                .setFrame(escuchaCliente.getPaqueteMovimiento().getFrame());
 
-		synchronized (Servidor.getAtencionMovimientos()) {
-			Servidor.getAtencionMovimientos().notify();
-		}
+        synchronized (Servidor.getAtencionMovimientos()) {
+            Servidor.getAtencionMovimientos().notify();
+        }
 
-	}
+    }
 
 }

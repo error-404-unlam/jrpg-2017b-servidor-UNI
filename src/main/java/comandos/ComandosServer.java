@@ -3,11 +3,19 @@ package comandos;
 import mensajeria.Comando;
 import servidor.EscuchaCliente;
 
+/**
+ * The Class ComandosServer.
+ */
 public abstract class ComandosServer extends Comando {
-	protected EscuchaCliente escuchaCliente;
+    protected EscuchaCliente escuchaCliente;
 
-	public void setEscuchaCliente(EscuchaCliente escuchaCliente) {
-		this.escuchaCliente = escuchaCliente;
-	}
+    /**
+     * Sets the escucha cliente.
+     *
+     * @param escuchaCliente the new escucha cliente
+     */
+    public void setEscuchaCliente(final EscuchaCliente escuchaCliente) {
+        this.escuchaCliente = escuchaCliente;
+    }
 
 }

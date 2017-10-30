@@ -13,6 +13,9 @@ import java.util.logging.Logger;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
+/**
+ * The Class Conector.
+ */
 public class Conector {
 
 	private String url = "primeraBase.bd";
@@ -39,6 +42,9 @@ public class Conector {
 	private static final int INDICE21 = 21;
 	private static final int INDICE29 = 29;
 
+	/**
+	 * Connect.
+	 */
 	public void connect() {
 		try {
             Servidor.getLog().append("Estableciendo conexión con la base de datos..." + System.lineSeparator());
@@ -50,15 +56,24 @@ public class Conector {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close() {
 		try {
             connect.close();
 		} catch (SQLException ex) {
-            Servidor.getLog().append("Error al intentar cerrar la conexión con la base de datos." + System.lineSeparator());
-            Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
+      Servidor.getLog().append("Error al intentar cerrar la conexión con la base de datos." + System.lineSeparator());
+      Logger.getLogger(Conector.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
+	/**
+	 * Registrar usuario.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 */
 	public boolean registrarUsuario(final PaqueteUsuario user) {
 		ResultSet result = null;
 		try {
@@ -74,7 +89,7 @@ public class Conector {
             	st.setString(INDICE2, user.getPassword());
             	st.setInt(INDICE3, user.getIdPj());
             	st.execute();
-            	Servidor.getLog().append("El usuario " + user.getUsername() + " se ha registrado." + System.lineSeparator());
+      Servidor.getLog().append("El usuario " + user.getUsername() + " se ha registrado." + System.lineSeparator());
             	return true;
             } else {
             	Servidor.getLog().append(
@@ -82,13 +97,20 @@ public class Conector {
             	return false;
             }
 		} catch (SQLException ex) {
-            Servidor.getLog().append("Eror al intentar registrar el usuario " + user.getUsername() + System.lineSeparator());
+      Servidor.getLog().append("Eror al intentar registrar el usuario " + user.getUsername() + System.lineSeparator());
             System.err.println(ex.getMessage());
             return false;
 		}
 
 	}
 
+     /**
+      * Registrar personaje.
+      *
+      * @param paquetePersonaje the paquete personaje
+      * @param paqueteUsuario the paquete usuario
+      * @return true, if successful
+      */
      public boolean registrarPersonaje(final PaquetePersonaje paquetePersonaje, final PaqueteUsuario paqueteUsuario) {
 
         try {
@@ -139,7 +161,7 @@ public class Conector {
 
             	// Por último, registro el inventario y la mochila
             	if (this.registrarInventarioMochila(idPersonaje)) {
-            		Servidor.getLog().append("El usuario " + paqueteUsuario.getUsername() + " ha creado el personaje "
+                Servidor.getLog().append("El usuario " + paqueteUsuario.getUsername() + " ha creado el personaje "
                         	+ paquetePersonaje.getId() + System.lineSeparator());
             		return true;
             	} else {
@@ -158,6 +180,12 @@ public class Conector {
 		}
 	}
 
+	/**
+	 * Registrar inventario mochila.
+	 *
+	 * @param idInventarioMochila the id inventario mochila
+	 * @return true, if successful
+	 */
 	public boolean registrarInventarioMochila(final int idInventarioMochila) {
 		try {
             // Preparo la consulta para el registro el inventario en la base de
@@ -187,15 +215,21 @@ public class Conector {
             stAsignarPersonaje.setInt(INDICE3, idInventarioMochila);
             stAsignarPersonaje.execute();
 
-            Servidor.getLog().append("Se ha registrado el inventario de " + idInventarioMochila + System.lineSeparator());
+       Servidor.getLog().append("Se ha registrado el inventario de " + idInventarioMochila + System.lineSeparator());
             return true;
 
 		} catch (SQLException e) {
-            Servidor.getLog().append("Error al registrar el inventario de " + idInventarioMochila + System.lineSeparator());
+       Servidor.getLog().append("Error al registrar el inventario de " + idInventarioMochila + System.lineSeparator());
             return false;
 		}
 	}
 
+	/**
+	 * Loguear usuario.
+	 *
+	 * @param user the user
+	 * @return true, if successful
+	 */
 	public boolean loguearUsuario(final PaqueteUsuario user) {
 		ResultSet result = null;
 		try {
@@ -226,9 +260,14 @@ public class Conector {
 
 	}
 
+    /**
+     * Actualizar personaje.
+     *
+     * @param paquetePersonaje the paquete personaje
+     */
     public void actualizarPersonaje(final PaquetePersonaje paquetePersonaje) {
 
-		if (paquetePersonaje.getId() < 0){  // Los NPCs no aparecen en la base de
+		if (paquetePersonaje.getId() < 0){ // Los NPCs no aparecen en la base de
                                     		// datos de personajes.
             Servidor.getLog().append("El NPC " + paquetePersonaje.getId() + " ha escapado la actualización con éxito."
             		+ System.lineSeparator());
@@ -299,6 +338,13 @@ public class Conector {
 
 	}
 
+	/**
+	 * Gets the personaje.
+	 *
+	 * @param user the user
+	 * @return the personaje
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public PaquetePersonaje getPersonaje(final PaqueteUsuario user) throws IOException {
 		ResultSet result = null;
 		ResultSet resultadoItemsID = null;
@@ -370,6 +416,12 @@ public class Conector {
 		return new PaquetePersonaje();
 	}
 
+	/**
+	 * Gets the usuario.
+	 *
+	 * @param usuario the usuario
+	 * @return the usuario
+	 */
 	public PaqueteUsuario getUsuario(final String usuario) {
 		ResultSet result = null;
 		PreparedStatement st;
@@ -396,6 +448,11 @@ public class Conector {
 		return new PaqueteUsuario();
 	}
 
+	/**
+	 * Actualizar inventario.
+	 *
+	 * @param paquetePersonaje the paquete personaje
+	 */
 	public void actualizarInventario(final PaquetePersonaje paquetePersonaje) {
 		int i = 0;
 		PreparedStatement stActualizarMochila;
@@ -419,6 +476,11 @@ public class Conector {
 		}
 	}
 
+	/**
+	 * Actualizar inventario.
+	 *
+	 * @param idPersonaje the id personaje
+	 */
 	public void actualizarInventario(final int idPersonaje) {
         int i = 0;
         PaquetePersonaje paquetePersonaje = Servidor.getPersonajesConectados().get(idPersonaje);
@@ -452,6 +514,11 @@ public class Conector {
 		}
 	}
 
+	/**
+	 * Actualizar personaje subio nivel.
+	 *
+	 * @param paquetePersonaje the paquete personaje
+	 */
 	public void actualizarPersonajeSubioNivel(final PaquetePersonaje paquetePersonaje) {
 		try {
             PreparedStatement stActualizarPersonaje = connect.prepareStatement(

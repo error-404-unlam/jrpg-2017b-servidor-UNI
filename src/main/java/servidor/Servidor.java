@@ -25,6 +25,9 @@ import mensajeria.PaqueteMensaje;
 import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 
+/**
+ * The Class Servidor.
+ */
 public class Servidor extends Thread {
 	// Para personajes con cliente.
 	private static ArrayList<EscuchaCliente> clientesConectados = new ArrayList<>();
@@ -53,10 +56,18 @@ public class Servidor extends Thread {
 	private static AtencionConexiones atencionConexiones;
 	private static AtencionMovimientos atencionMovimientos;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(final String[] args) {
 		cargarInterfaz();
 	}
 
+	/**
+	 * Cargar interfaz.
+	 */
 	private static void cargarInterfaz() {
 		JFrame ventana = new JFrame("Servidor WOME");
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,7 +122,7 @@ public class Servidor extends Thread {
 				} catch (IOException e1) {
 					log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
 				}
-				if (conexionDB != null){ 
+				if (conexionDB != null){
 					conexionDB.close();
 				}
 				botonDetener.setEnabled(false);
@@ -141,7 +152,7 @@ public class Servidor extends Thread {
 						System.exit(1);
 					}
 				}
-				if (conexionDB != null){ 
+				if (conexionDB != null){
 					conexionDB.close();
 				}
 				System.exit(0);
@@ -151,6 +162,9 @@ public class Servidor extends Thread {
 		ventana.setVisible(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	public void run() {
 		try {
 
@@ -187,6 +201,12 @@ public class Servidor extends Thread {
 		}
 	}
 
+	/**
+	 * Mensaje A usuario.
+	 *
+	 * @param pqm the pqm
+	 * @return true, if successful
+	 */
 	public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
 		boolean result = false;
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
@@ -200,6 +220,12 @@ public class Servidor extends Thread {
 		return result;
 	}
 
+	/**
+	 * Mensaje A all.
+	 *
+	 * @param contador the contador
+	 * @return true, if successful
+	 */
 	public static boolean mensajeAAll(final int contador) {
 		boolean result = true;
 		if (personajesConectados.size() != contador + 1) {
@@ -214,46 +240,101 @@ public class Servidor extends Thread {
 		return result;
 	}
 
+	/**
+	 * Gets the clientes conectados.
+	 *
+	 * @return the clientes conectados
+	 */
 	public static ArrayList<EscuchaCliente> getClientesConectados() {
 		return clientesConectados;
 	}
 
+	/**
+	 * Gets the ubicacion personajes.
+	 *
+	 * @return the ubicacion personajes
+	 */
 	public static Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
 		return ubicacionPersonajes;
 	}
 
+	/**
+	 * Gets the personajes conectados.
+	 *
+	 * @return the personajes conectados
+	 */
 	public static Map<Integer, PaquetePersonaje> getPersonajesConectados() {
 		return personajesConectados;
 	}
 
+	/**
+	 * Gets the conector.
+	 *
+	 * @return the conector
+	 */
 	public static Conector getConector() {
 		return conexionDB;
 	}
 
+	/**
+	 * Gets the NP cs cargados.
+	 *
+	 * @return the NP cs cargados
+	 */
 	public static Map<Integer, NPC> getNPCsCargados() {
 		return npcsCargados;
 	}
 
+	/**
+	 * Gets the log.
+	 *
+	 * @return the log
+	 */
 	public static JTextArea getLog() {
 		return log;
 	}
 
+	/**
+	 * Sets the log.
+	 *
+	 * @param log the new log
+	 */
 	public static void setLog(final JTextArea log) {
 		Servidor.log = log;
 	}
 
+	/**
+	 * Gets the atencion conexiones.
+	 *
+	 * @return the atencion conexiones
+	 */
 	public static AtencionConexiones getAtencionConexiones() {
 		return atencionConexiones;
 	}
 
+	/**
+	 * Sets the atencion conexiones.
+	 *
+	 * @param atencionConexiones the new atencion conexiones
+	 */
 	public static void setAtencionConexiones(final AtencionConexiones atencionConexiones) {
 		Servidor.atencionConexiones = atencionConexiones;
 	}
 
+	/**
+	 * Gets the atencion movimientos.
+	 *
+	 * @return the atencion movimientos
+	 */
 	public static AtencionMovimientos getAtencionMovimientos() {
 		return atencionMovimientos;
 	}
 
+	/**
+	 * Sets the atencion movimientos.
+	 *
+	 * @param atencionMovimientos the new atencion movimientos
+	 */
 	public static void setAtencionMovimientos(final AtencionMovimientos atencionMovimientos) {
 		Servidor.atencionMovimientos = atencionMovimientos;
 	}

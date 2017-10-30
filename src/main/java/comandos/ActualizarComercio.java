@@ -6,8 +6,14 @@ import mensajeria.PaqueteComerciar;
 import servidor.EscuchaCliente;
 import servidor.Servidor;
 
+/**
+ * The Class ActualizarComercio.
+ */
 public class ActualizarComercio extends ComandosServer {
 
+	/* (non-Javadoc)
+	 * @see mensajeria.Comando#ejecutar()
+	 */
 	@Override
 	public void ejecutar() {
 		PaqueteComerciar paqueteComerciar;
@@ -19,7 +25,8 @@ public class ActualizarComercio extends ComandosServer {
 				try {
 					conectado.getSalida().writeObject(gson.toJson(paqueteComerciar));
 				} catch (IOException e) {
-					Servidor.getLog().append("Falló al intentar enviar paqueteComerciar a:" + conectado.getPaquetePersonaje().getId() + "\n");
+                 Servidor.getLog().append("Falló al intentar enviar paqueteComerciar a:"
+				        + conectado.getPaquetePersonaje().getId() + "\n");
 				}
 			}
 		}

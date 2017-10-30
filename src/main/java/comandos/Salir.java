@@ -5,8 +5,14 @@ import java.io.IOException;
 import mensajeria.Paquete;
 import servidor.Servidor;
 
+/**
+ * The Class Salir.
+ */
 public class Salir extends ComandosServer {
 
+	/* (non-Javadoc)
+	 * @see mensajeria.Comando#ejecutar()
+	 */
 	@Override
 	public void ejecutar() {
 		// Cierro todo
