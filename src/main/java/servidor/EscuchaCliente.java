@@ -53,8 +53,7 @@ public class EscuchaCliente extends Thread {
             paqueteUsuario = new PaqueteUsuario();
 
             String cadenaLeida = (String) entrada.readObject();
-            paquete = gson.fromJson(cadenaLeida, Paquete.class);
-            while (!(paquete.getComando() == Comando.DESCONECTAR)) {
+			while (!((paquete = gson.fromJson(cadenaLeida, Paquete.class)).getComando() == Comando.DESCONECTAR)) {
 
                 comand = (ComandosServer) paquete.getObjeto(Comando.NOMBREPAQUETE);
                 comand.setCadena(cadenaLeida);
