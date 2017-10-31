@@ -26,7 +26,7 @@ import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 
 /**
- * The Class Servidor.
+ * Clase Servidor.
  */
 public class Servidor extends Thread {
 	// Para personajes con cliente.
@@ -49,7 +49,26 @@ public class Servidor extends Thread {
 	private static final int ANCHO = 700;
 	private static final int ALTO = 640;
 	private static final int ALTO_LOG = 520;
-	private static final int ANCHO_LOG = ANCHO - 25;
+	private static final int MODIFICADOR_ANCHO_LOG = 25;
+	private static final int ANCHO_LOG = ANCHO - MODIFICADOR_ANCHO_LOG;
+
+	private static final int POSX_BOTON_INICIAR = 220;
+	private static final int POSX_BOTON_DETENER = 360;
+	private static final int MODIFICADOR_POSY_BOTONES = 70;
+	private static final int POSY_BOTONES = ALTO - MODIFICADOR_POSY_BOTONES;
+	private static final int ANCHO_BOTONES = 100;
+	private static final int ALTO_BOTONES = 30;
+
+	private static final int TAM_FUENTE_TITULO = 16;
+	private static final int TAM_FUENTE_LOG = 13;
+
+	private static final int POSX_LOG = 10;
+	private static final int POSY_LOG = 40;
+
+	private static final int POSX_TITULO = 10;
+	private static final int POSY_TITULO = 0;
+	private static final int ANCHO_TITULO = 200;
+	private static final int ALTO_TITULO = 30;
 
 	private static JTextArea log;
 
@@ -57,9 +76,9 @@ public class Servidor extends Thread {
 	private static AtencionMovimientos atencionMovimientos;
 
 	/**
-	 * The main method.
+	 * Metodo principal
 	 *
-	 * @param args the arguments
+	 * @param args argumentos
 	 */
 	public static void main(final String[] args) {
 		cargarInterfaz();
@@ -77,22 +96,22 @@ public class Servidor extends Thread {
 		ventana.setLayout(null);
 		ventana.setIconImage(Toolkit.getDefaultToolkit().getImage("src/main/java/servidor/server.png"));
 		JLabel titulo = new JLabel("Log del servidor...");
-		titulo.setFont(new Font("Courier New", Font.BOLD, 16));
-		titulo.setBounds(10, 0, 200, 30);
+		titulo.setFont(new Font("Courier New", Font.BOLD, TAM_FUENTE_TITULO));
+		titulo.setBounds(POSX_TITULO, POSY_TITULO, ANCHO_TITULO, ALTO_TITULO);
 		ventana.add(titulo);
 
 		log = new JTextArea();
 		log.setEditable(false);
-		log.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		log.setFont(new Font("Times New Roman", Font.PLAIN, TAM_FUENTE_LOG));
 		JScrollPane scroll = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBounds(10, 40, ANCHO_LOG, ALTO_LOG);
+		scroll.setBounds(POSX_LOG, POSY_LOG, ANCHO_LOG, ALTO_LOG);
 		ventana.add(scroll);
 
 		final JButton botonIniciar = new JButton();
 		final JButton botonDetener = new JButton();
 		botonIniciar.setText("Iniciar");
-		botonIniciar.setBounds(220, ALTO - 70, 100, 30);
+		botonIniciar.setBounds(POSX_BOTON_INICIAR, POSY_BOTONES, ANCHO_BOTONES, ALTO_BOTONES);
 		botonIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				server = new Thread(new Servidor());
@@ -105,7 +124,7 @@ public class Servidor extends Thread {
 		ventana.add(botonIniciar);
 
 		botonDetener.setText("Detener");
-		botonDetener.setBounds(360, ALTO - 70, 100, 30);
+		botonDetener.setBounds(POSX_BOTON_DETENER, POSY_BOTONES, ANCHO_BOTONES, ALTO_BOTONES);
 		botonDetener.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent e) {
 				try {
@@ -122,7 +141,7 @@ public class Servidor extends Thread {
 				} catch (IOException e1) {
 					log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
 				}
-				if (conexionDB != null){
+				if (conexionDB != null){ 
 					conexionDB.close();
 				}
 				botonDetener.setEnabled(false);
@@ -152,7 +171,7 @@ public class Servidor extends Thread {
 						System.exit(1);
 					}
 				}
-				if (conexionDB != null){
+				if (conexionDB != null){ 
 					conexionDB.close();
 				}
 				System.exit(0);
@@ -162,8 +181,8 @@ public class Servidor extends Thread {
 		ventana.setVisible(true);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Thread#run()
+	/**
+	 * Metodo run de la clase Thread
 	 */
 	public void run() {
 		try {
@@ -204,8 +223,8 @@ public class Servidor extends Thread {
 	/**
 	 * Mensaje A usuario.
 	 *
-	 * @param pqm the pqm
-	 * @return true, if successful
+	 * @param pqm Objeto de la clase Paquete mensaje
+	 * @return boolean
 	 */
 	public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
 		boolean result = false;
@@ -223,8 +242,8 @@ public class Servidor extends Thread {
 	/**
 	 * Mensaje A all.
 	 *
-	 * @param contador the contador
-	 * @return true, if successful
+	 * @param contador el contador
+	 * @return boolean
 	 */
 	public static boolean mensajeAAll(final int contador) {
 		boolean result = true;
@@ -241,34 +260,34 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Gets the clientes conectados.
+	 * Obtiene los clientes conectados.
 	 *
-	 * @return the clientes conectados
+	 * @return lista de clientes conectados
 	 */
 	public static ArrayList<EscuchaCliente> getClientesConectados() {
 		return clientesConectados;
 	}
 
 	/**
-	 * Gets the ubicacion personajes.
+	 * Obtiene la ubicacion de los personajes.
 	 *
-	 * @return the ubicacion personajes
+	 * @return Mapa con un entero y un objeto de la clase PaqueteMovimiento
 	 */
 	public static Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
 		return ubicacionPersonajes;
 	}
 
 	/**
-	 * Gets the personajes conectados.
+	 * Obtiene los personajes conectados.
 	 *
-	 * @return the personajes conectados
+	 * @return Mapa con un entero y un objeto de la clase PaquetePersonae
 	 */
 	public static Map<Integer, PaquetePersonaje> getPersonajesConectados() {
 		return personajesConectados;
 	}
 
 	/**
-	 * Gets the conector.
+	 * Obtiene el conector.
 	 *
 	 * @return the conector
 	 */
@@ -277,16 +296,16 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Gets the NP cs cargados.
+	 * Obtiene NPcs cargados.
 	 *
-	 * @return the NP cs cargados
+	 * @return the NPcs cargados
 	 */
 	public static Map<Integer, NPC> getNPCsCargados() {
 		return npcsCargados;
 	}
 
 	/**
-	 * Gets the log.
+	 * Obtiene log.
 	 *
 	 * @return the log
 	 */
@@ -295,7 +314,7 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Sets the log.
+	 * Setea log.
 	 *
 	 * @param log the new log
 	 */
@@ -304,7 +323,7 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Gets the atencion conexiones.
+	 * Obtiene atencion conexiones.
 	 *
 	 * @return the atencion conexiones
 	 */
@@ -313,7 +332,7 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Sets the atencion conexiones.
+	 * Setea atencion conexiones.
 	 *
 	 * @param atencionConexiones the new atencion conexiones
 	 */
@@ -322,7 +341,7 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Gets the atencion movimientos.
+	 * Obtiene atencion movimientos.
 	 *
 	 * @return the atencion movimientos
 	 */
@@ -331,7 +350,7 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Sets the atencion movimientos.
+	 * Setea atencion movimientos.
 	 *
 	 * @param atencionMovimientos the new atencion movimientos
 	 */
