@@ -57,8 +57,8 @@ public class EscuchaCliente extends Thread {
         paquetePersonaje = new PaquetePersonaje();
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Thread#run()
+    /**
+     * Metodo de la clase Thread
      */
     public void run() {
         try {

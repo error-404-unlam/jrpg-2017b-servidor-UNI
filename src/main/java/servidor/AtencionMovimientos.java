@@ -20,8 +20,8 @@ public class AtencionMovimientos extends Thread {
 
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Thread#run()
+    /**
+     * Metodo de la clase Thread
      */
     public void run() {
 
