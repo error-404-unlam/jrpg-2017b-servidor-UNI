@@ -20,7 +20,8 @@ import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
 /**
- * The Class EscuchaCliente.
+ * Clase EscuchaCliente.
+ * Extiende de la clase Thread
  */
 public class EscuchaCliente extends Thread {
 
@@ -40,12 +41,12 @@ public class EscuchaCliente extends Thread {
     private PaqueteDePersonajes paqueteDePersonajes;
 
     /**
-     * Instantiates a new escucha cliente.
+     * Constructor de EscuchaCliente
      *
-     * @param ip the ip
-     * @param socket the socket
-     * @param entrada the entrada
-     * @param salida the salida
+     * @param ip IP
+     * @param socket Socket
+     * @param entrada Objeto de la clase ObjectInputStream
+     * @param salida Objeto de la clase  ObjectOutputStream
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public EscuchaCliente(final String ip, final Socket socket, final ObjectInputStream entrada,
@@ -100,7 +101,7 @@ public class EscuchaCliente extends Thread {
     }
 
     /**
-     * Gets the socket.
+     * Obtiene socket.
      *
      * @return the socket
      */
@@ -109,180 +110,180 @@ public class EscuchaCliente extends Thread {
     }
 
     /**
-     * Gets the entrada.
+     * Obtiene entrada.
      *
-     * @return the entrada
+     * @return entrada Objeto de la clase ObjectInputStream
      */
     public ObjectInputStream getEntrada() {
         return entrada;
     }
 
     /**
-     * Gets the salida.
+     * Obtiene the salida.
      *
-     * @return the salida
+     * @return salida Objeto de la clase ObjectOutputStream
      */
     public ObjectOutputStream getSalida() {
         return salida;
     }
 
     /**
-     * Gets the paquete personaje.
+     * Obtiene paquete personaje.
      *
-     * @return the paquete personaje
+     * @return paquetepersonaje Objeto de la clase PaquetePersonaje
      */
     public PaquetePersonaje getPaquetePersonaje() {
         return paquetePersonaje;
     }
 
     /**
-     * Gets the id personaje.
+     * Obtiene id personaje.
      *
-     * @return the id personaje
+     * @return id personaje
      */
     public int getIdPersonaje() {
         return idPersonaje;
     }
 
     /**
-     * Gets the paquete movimiento.
+     * Obtiene paquete movimiento.
      *
-     * @return the paquete movimiento
+     * @return paquete movimiento Objeto de la clase PaqueteMovimiento
      */
     public PaqueteMovimiento getPaqueteMovimiento() {
         return paqueteMovimiento;
     }
 
     /**
-     * Sets the paquete movimiento.
+     * Setea paquete movimiento.
      *
-     * @param paqueteMovimiento the new paquete movimiento
+     * @param paqueteMovimiento Objeto de la clase PaqueteMovimiento
      */
     public void setPaqueteMovimiento(final PaqueteMovimiento paqueteMovimiento) {
         this.paqueteMovimiento = paqueteMovimiento;
     }
 
     /**
-     * Gets the paquete batalla.
+     * Obtiene paquete batalla.
      *
-     * @return the paquete batalla
+     * @return paquete batalla Objeto de la clase PaqueteBatalla
      */
     public PaqueteBatalla getPaqueteBatalla() {
         return paqueteBatalla;
     }
 
     /**
-     * Sets the paquete batalla.
+     * Setea paquete batalla.
      *
-     * @param paqueteBatalla the new paquete batalla
+     * @param paqueteBatalla Objeto de la clase PaqueteBatalla
      */
     public void setPaqueteBatalla(final PaqueteBatalla paqueteBatalla) {
         this.paqueteBatalla = paqueteBatalla;
     }
 
     /**
-     * Gets the paquete atacar.
+     * Obtiene paquete atacar.
      *
-     * @return the paquete atacar
+     * @return paquete atacar Objeto de la clase Paqueteatacar
      */
     public PaqueteAtacar getPaqueteAtacar() {
         return paqueteAtacar;
     }
 
     /**
-     * Sets the paquete atacar.
+     * Setea paquete atacar.
      *
-     * @param paqueteAtacar the new paquete atacar
+     * @param paqueteAtacar Objeto de la clase  PaqueteAtacar
      */
     public void setPaqueteAtacar(final PaqueteAtacar paqueteAtacar) {
         this.paqueteAtacar = paqueteAtacar;
     }
 
     /**
-     * Gets the paquete finalizar batalla.
+     * Obtiene paquete finalizar batalla.
      *
-     * @return the paquete finalizar batalla
+     * @return paquete finalizar batalla Objeto de la clase PaqueteFinalizarBatalla
      */
     public PaqueteFinalizarBatalla getPaqueteFinalizarBatalla() {
         return paqueteFinalizarBatalla;
     }
 
     /**
-     * Sets the paquete finalizar batalla.
+     * Setea paquete finalizar batalla.
      *
-     * @param paqueteFinalizarBatalla the new paquete finalizar batalla
+     * @param paqueteFinalizarBatalla Objeto de la clase PaqueteFinalizarBatalla
      */
     public void setPaqueteFinalizarBatalla(final PaqueteFinalizarBatalla paqueteFinalizarBatalla) {
         this.paqueteFinalizarBatalla = paqueteFinalizarBatalla;
     }
 
     /**
-     * Gets the paquete de movimiento.
+     * Obtiene paquete de movimiento.
      *
-     * @return the paquete de movimiento
+     * @return paquete de movimiento Objeto de la clase PaqueteDeMovimientos
      */
     public PaqueteDeMovimientos getPaqueteDeMovimiento() {
         return paqueteDeMovimiento;
     }
 
     /**
-     * Sets the paquete de movimiento.
+     * Setea paquete de movimiento.
      *
-     * @param paqueteDeMovimiento the new paquete de movimiento
+     * @param paqueteDeMovimiento Objeto de la clase PaqueteMovimientos
      */
     public void setPaqueteDeMovimiento(final PaqueteDeMovimientos paqueteDeMovimiento) {
         this.paqueteDeMovimiento = paqueteDeMovimiento;
     }
 
     /**
-     * Gets the paquete de personajes.
+     * Obtiene paquete de personajes.
      *
-     * @return the paquete de personajes
+     * @return paquete de personajes Objeto de la clase PaqueteDePersonajes
      */
     public PaqueteDePersonajes getPaqueteDePersonajes() {
         return paqueteDePersonajes;
     }
 
     /**
-     * Sets the paquete de personajes.
+     * Setea paquete de personajes.
      *
-     * @param paqueteDePersonajes the new paquete de personajes
+     * @param paqueteDePersonajes Objeto de la clase PaqueteDePersonajes
      */
     public void setPaqueteDePersonajes(final PaqueteDePersonajes paqueteDePersonajes) {
         this.paqueteDePersonajes = paqueteDePersonajes;
     }
 
     /**
-     * Sets the id personaje.
+     * Setea id personaje.
      *
-     * @param idPersonaje the new id personaje
+     * @param idPersonaje
      */
     public void setIdPersonaje(final int idPersonaje) {
         this.idPersonaje = idPersonaje;
     }
 
     /**
-     * Sets the paquete personaje.
+     * Setea paquete personaje.
      *
-     * @param paquetePersonaje the new paquete personaje
+     * @param paquetePersonaje Objeto de la clase PaquetePersonaje
      */
     public void setPaquetePersonaje(final PaquetePersonaje paquetePersonaje) {
         this.paquetePersonaje = paquetePersonaje;
     }
 
     /**
-     * Gets the paquete usuario.
+     * Obtiene paquete usuario.
      *
-     * @return the paquete usuario
+     * @return paquete usuario Objeto de la clase PaqueteUsuario
      */
     public PaqueteUsuario getPaqueteUsuario() {
         return paqueteUsuario;
     }
 
     /**
-     * Sets the paquete usuario.
+     * Setea paquete usuario.
      *
-     * @param paqueteUsuario the new paquete usuario
+     * @param paqueteUsuario Objeto de la clase PaqueteUsuario
      */
     public void setPaqueteUsuario(final PaqueteUsuario paqueteUsuario) {
         this.paqueteUsuario = paqueteUsuario;

@@ -27,6 +27,7 @@ import mensajeria.PaquetePersonaje;
 
 /**
  * Clase Servidor.
+ * Extiende de la clase Thread
  */
 public class Servidor extends Thread {
 	// Para personajes con cliente.
@@ -240,9 +241,9 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Mensaje A all.
+	 * Mensaje a todos.
 	 *
-	 * @param contador el contador
+	 * @param contador
 	 * @return boolean
 	 */
 	public static boolean mensajeAAll(final int contador) {
@@ -262,7 +263,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene los clientes conectados.
 	 *
-	 * @return lista de clientes conectados
+	 * @return clientesConectados lista de clientes conectados
 	 */
 	public static ArrayList<EscuchaCliente> getClientesConectados() {
 		return clientesConectados;
@@ -271,7 +272,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene la ubicacion de los personajes.
 	 *
-	 * @return Mapa con un entero y un objeto de la clase PaqueteMovimiento
+	 * @return ubicacionPersonajes Mapa con la ubicacion de los personajes
 	 */
 	public static Map<Integer, PaqueteMovimiento> getUbicacionPersonajes() {
 		return ubicacionPersonajes;
@@ -280,7 +281,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene los personajes conectados.
 	 *
-	 * @return Mapa con un entero y un objeto de la clase PaquetePersonae
+	 * @return personajesConectados Mapa con los personajes conectados
 	 */
 	public static Map<Integer, PaquetePersonaje> getPersonajesConectados() {
 		return personajesConectados;
@@ -289,7 +290,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene el conector.
 	 *
-	 * @return the conector
+	 * @return conector Objeto de la clase Conector
 	 */
 	public static Conector getConector() {
 		return conexionDB;
@@ -298,7 +299,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene NPcs cargados.
 	 *
-	 * @return the NPcs cargados
+	 * @return NPcs cargados Mapa con los NPCS cargados
 	 */
 	public static Map<Integer, NPC> getNPCsCargados() {
 		return npcsCargados;
@@ -307,7 +308,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene log.
 	 *
-	 * @return the log
+	 * @return log Objeto de la clase JTextArea
 	 */
 	public static JTextArea getLog() {
 		return log;
@@ -316,7 +317,7 @@ public class Servidor extends Thread {
 	/**
 	 * Setea log.
 	 *
-	 * @param log the new log
+	 * @param log Objeto de la clase JTextArea
 	 */
 	public static void setLog(final JTextArea log) {
 		Servidor.log = log;
@@ -325,7 +326,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene atencion conexiones.
 	 *
-	 * @return the atencion conexiones
+	 * @return atencion conexiones Objeto de la clase AtencionConexiones
 	 */
 	public static AtencionConexiones getAtencionConexiones() {
 		return atencionConexiones;
@@ -334,7 +335,7 @@ public class Servidor extends Thread {
 	/**
 	 * Setea atencion conexiones.
 	 *
-	 * @param atencionConexiones the new atencion conexiones
+	 * @param atencionConexiones Objeto de la clase AtencionConexiones
 	 */
 	public static void setAtencionConexiones(final AtencionConexiones atencionConexiones) {
 		Servidor.atencionConexiones = atencionConexiones;
@@ -343,7 +344,7 @@ public class Servidor extends Thread {
 	/**
 	 * Obtiene atencion movimientos.
 	 *
-	 * @return the atencion movimientos
+	 * @return the atencion movimientos Objeto de la clase AtencionMovimientos
 	 */
 	public static AtencionMovimientos getAtencionMovimientos() {
 		return atencionMovimientos;
@@ -352,7 +353,7 @@ public class Servidor extends Thread {
 	/**
 	 * Setea atencion movimientos.
 	 *
-	 * @param atencionMovimientos the new atencion movimientos
+	 * @param atencionMovimientos Objeto de la clase AtencionMovimientos
 	 */
 	public static void setAtencionMovimientos(final AtencionMovimientos atencionMovimientos) {
 		Servidor.atencionMovimientos = atencionMovimientos;

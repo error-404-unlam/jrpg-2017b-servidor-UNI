@@ -14,7 +14,7 @@ import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
 /**
- * The Class Conector.
+ * Clase Conector.
  */
 public class Conector {
 
@@ -43,7 +43,8 @@ public class Conector {
 	private static final int INDICE29 = 29;
 
 	/**
-	 * Connect.
+	 * Metodo Connect.
+	 * Establece la conexion con la base de datos
 	 */
 	public void connect() {
 		try {
@@ -57,7 +58,8 @@ public class Conector {
 	}
 
 	/**
-	 * Close.
+	 * Metodo Close.
+	 * Cierra la conexion con la Base de datos
 	 */
 	public void close() {
 		try {
@@ -71,8 +73,8 @@ public class Conector {
 	/**
 	 * Registrar usuario.
 	 *
-	 * @param user the user
-	 * @return true, if successful
+	 * @param user Objeto de la clase PaqueteUsuario
+	 * @return boolean
 	 */
 	public boolean registrarUsuario(final PaqueteUsuario user) {
 		ResultSet result = null;
@@ -107,9 +109,9 @@ public class Conector {
      /**
       * Registrar personaje.
       *
-      * @param paquetePersonaje the paquete personaje
-      * @param paqueteUsuario the paquete usuario
-      * @return true, if successful
+      * @param paquetePersonaje Objeto de la clase PaquetePersonaje
+      * @param paqueteUsuario Objeto de la clase PaqueteUsuario
+      * @return boolean
       */
      public boolean registrarPersonaje(final PaquetePersonaje paquetePersonaje, final PaqueteUsuario paqueteUsuario) {
 
@@ -183,8 +185,8 @@ public class Conector {
 	/**
 	 * Registrar inventario mochila.
 	 *
-	 * @param idInventarioMochila the id inventario mochila
-	 * @return true, if successful
+	 * @param idInventarioMochila entero que indica el id del Inventario Mochila
+	 * @return boolean
 	 */
 	public boolean registrarInventarioMochila(final int idInventarioMochila) {
 		try {
@@ -227,8 +229,8 @@ public class Conector {
 	/**
 	 * Loguear usuario.
 	 *
-	 * @param user the user
-	 * @return true, if successful
+	 * @param user Objeto de la clase PaqueteUsuario
+	 * @return boolean
 	 */
 	public boolean loguearUsuario(final PaqueteUsuario user) {
 		ResultSet result = null;
@@ -263,7 +265,7 @@ public class Conector {
     /**
      * Actualizar personaje.
      *
-     * @param paquetePersonaje the paquete personaje
+     * @param paquetePersonaje Objeto de la clase PaquetePersonaje
      */
     public void actualizarPersonaje(final PaquetePersonaje paquetePersonaje) {
     	// Los NPCs no aparecen en la base de datos de personajes.
@@ -338,10 +340,10 @@ public class Conector {
 	}
 
 	/**
-	 * Gets the personaje.
+	 * Obtiene the personaje.
 	 *
-	 * @param user the user
-	 * @return the personaje
+	 * @param user Objeto de la clase PaqueteUsuario
+	 * @return personaje de la clase PaquetePersonaje
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public PaquetePersonaje getPersonaje(final PaqueteUsuario user) throws IOException {
@@ -416,10 +418,10 @@ public class Conector {
 	}
 
 	/**
-	 * Gets the usuario.
+	 * Obtiene usuario.
 	 *
-	 * @param usuario the usuario
-	 * @return the usuario
+	 * @param usuario nombre del usuario
+	 * @return Objeto de la clase PaqueteUsuario
 	 */
 	public PaqueteUsuario getUsuario(final String usuario) {
 		ResultSet result = null;
@@ -450,7 +452,7 @@ public class Conector {
 	/**
 	 * Actualizar inventario.
 	 *
-	 * @param paquetePersonaje the paquete personaje
+	 * @param paquetePersonaje Objeto de la clase PaquetePersonaje
 	 */
 	public void actualizarInventario(final PaquetePersonaje paquetePersonaje) {
 		int i = 0;
@@ -478,7 +480,7 @@ public class Conector {
 	/**
 	 * Actualizar inventario.
 	 *
-	 * @param idPersonaje the id personaje
+	 * @param idPersonaje entero que representa el id del personaje
 	 */
 	public void actualizarInventario(final int idPersonaje) {
         int i = 0;
@@ -516,7 +518,7 @@ public class Conector {
 	/**
 	 * Actualizar personaje subio nivel.
 	 *
-	 * @param paquetePersonaje the paquete personaje
+	 * @param paquetePersonaje Objeto de la clase PaquetePersonaje
 	 */
 	public void actualizarPersonajeSubioNivel(final PaquetePersonaje paquetePersonaje) {
 		try {

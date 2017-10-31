@@ -7,14 +7,16 @@ import mensajeria.Comando;
 import mensajeria.PaqueteDeMovimientos;
 
 /**
- * The Class AtencionMovimientos.
+ * Clase AtencionMovimientos.
+ * Extiende de la clase Thread
+ * 
  */
 public class AtencionMovimientos extends Thread {
 
     private final Gson gson = new Gson();
 
     /**
-     * Instantiates a new atencion movimientos.
+     * Constructor.
      */
     public AtencionMovimientos() {
 

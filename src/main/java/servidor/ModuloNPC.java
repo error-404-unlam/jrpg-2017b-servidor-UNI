@@ -16,7 +16,7 @@ import mensajeria.PaqueteDeMovimientos;
 import mensajeria.PaqueteDePersonajes;
 
 /**
- * The Class ModuloNPC.
+ * Clase ModuloNPC.
  */
 public class ModuloNPC {
 

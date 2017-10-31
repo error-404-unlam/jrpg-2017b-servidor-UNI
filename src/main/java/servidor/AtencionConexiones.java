@@ -7,14 +7,15 @@ import mensajeria.Comando;
 import mensajeria.PaqueteDePersonajes;
 
 /**
- * The Class AtencionConexiones.
+ * Clase AtencionConexiones.
+ * Extiende de la clase Thread
  */
 public class AtencionConexiones extends Thread {
 
     private final Gson gson = new Gson();
 
     /**
-     * Instantiates a new atencion conexiones.
+     * Constructor.
      */
     public AtencionConexiones() {
 
