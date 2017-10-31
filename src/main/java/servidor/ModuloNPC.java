@@ -21,6 +21,13 @@ import mensajeria.PaqueteDePersonajes;
 public class ModuloNPC {
 
 	private static final long PERIODO = 500;
+	
+    /**
+     * Constructor.
+     */
+    public ModuloNPC() {
+
+    }
 
 	/**
 	 * Ejecutar.

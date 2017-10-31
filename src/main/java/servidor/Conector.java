@@ -269,7 +269,7 @@ public class Conector {
      */
     public void actualizarPersonaje(final PaquetePersonaje paquetePersonaje) {
     	// Los NPCs no aparecen en la base de datos de personajes.
-		if (paquetePersonaje.getId() < 0){
+		if (paquetePersonaje.getId() < 0) {
             Servidor.getLog().append("El NPC " + paquetePersonaje.getId() + " ha escapado la actualización con éxito."
             		+ System.lineSeparator());
             return;

@@ -59,7 +59,7 @@ public class NPC {
     /**
      * Constructor
      *
-     * @param path ruta del archivo 
+     * @param path ruta del archivo
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public NPC(final String path) throws IOException { // Crea un NPC a partir
@@ -162,9 +162,9 @@ public class NPC {
     /**
      * Baldosas A coordenadas.
      *
-     * @param j
-     * @param i
-     * @return vector de float 
+     * @param j posicion j
+     * @param i posicion i
+     * @return vector de float
      */
     public static float[] baldosasACoordenadas(final int j, final int i) {
         float[] vec = new float[2];
@@ -611,7 +611,7 @@ public class NPC {
     /**
      * Obtine id.
      *
-     * @return id
+     * @return id del npc
      */
     public int getId() {
         return id;
@@ -620,7 +620,7 @@ public class NPC {
     /**
      * Setea id.
      *
-     * @param id
+     * @param id del Npc
      */
     public void setId(final int id) {
         this.id = id;
@@ -629,7 +629,7 @@ public class NPC {
     /**
      * Obtiene dificultad.
      *
-     * @return dificultad
+     * @return dificultad del npc
      */
     public int getDificultad() {
         return dificultad;
@@ -638,7 +638,7 @@ public class NPC {
     /**
      * Setea dificultad.
      *
-     * @param dificultad
+     * @param dificultad del npc
      */
     public void setDificultad(final int dificultad) {
         this.dificultad = dificultad;
@@ -647,7 +647,7 @@ public class NPC {
     /**
      * Obtiene movimiento.
      *
-     * @return movimiento
+     * @return movimiento del npc
      */
     public int getMovimiento() {
         return movimiento;
@@ -656,7 +656,7 @@ public class NPC {
     /**
      * Setea the movimiento.
      *
-     * @param movimiento
+     * @param movimiento del npc
      */
     public void setMovimiento(final int movimiento) {
         this.movimiento = movimiento;
@@ -665,7 +665,7 @@ public class NPC {
     /**
      * Obtiene persistencia.
      *
-     * @return persistencia
+     * @return persistencia del npc
      */
     public int getPersistencia() {
         return persistencia;
@@ -674,7 +674,7 @@ public class NPC {
     /**
      * Setea persistencia.
      *
-     * @param persistencia
+     * @param persistencia del npc
      */
     public void setPersistencia(final int persistencia) {
         this.persistencia = persistencia;

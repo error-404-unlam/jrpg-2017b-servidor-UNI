@@ -9,7 +9,6 @@ import mensajeria.PaqueteDeMovimientos;
 /**
  * Clase AtencionMovimientos.
  * Extiende de la clase Thread
- * 
  */
 public class AtencionMovimientos extends Thread {
 

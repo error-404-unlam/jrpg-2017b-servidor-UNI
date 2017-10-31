@@ -256,7 +256,7 @@ public class EscuchaCliente extends Thread {
     /**
      * Setea id personaje.
      *
-     * @param idPersonaje
+     * @param idPersonaje id del personaje
      */
     public void setIdPersonaje(final int idPersonaje) {
         this.idPersonaje = idPersonaje;

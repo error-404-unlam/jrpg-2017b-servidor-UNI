@@ -142,7 +142,7 @@ public class Servidor extends Thread {
 				} catch (IOException e1) {
 					log.append("Fallo al intentar detener el servidor." + System.lineSeparator());
 				}
-				if (conexionDB != null){ 
+				if (conexionDB != null) {
 					conexionDB.close();
 				}
 				botonDetener.setEnabled(false);
@@ -172,7 +172,7 @@ public class Servidor extends Thread {
 						System.exit(1);
 					}
 				}
-				if (conexionDB != null){ 
+				if (conexionDB != null) {
 					conexionDB.close();
 				}
 				System.exit(0);
@@ -243,8 +243,8 @@ public class Servidor extends Thread {
 	/**
 	 * Mensaje a todos.
 	 *
-	 * @param contador
-	 * @return boolean
+	 * @param el contador
+	 * @return boolean, true si se mando el msj a todos
 	 */
 	public static boolean mensajeAAll(final int contador) {
 		boolean result = true;
