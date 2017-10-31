@@ -7,7 +7,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class Comercio.
+ * Clase Comercio.
+ * Extiende de la clase ComandosServer
  */
 public class Comercio extends ComandosServer {
 

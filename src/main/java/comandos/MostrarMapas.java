@@ -4,7 +4,8 @@ import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
 /**
- * The Class MostrarMapas.
+ * Clase MostrarMapas.
+ * Extiende de la clase ComandosServer
  */
 public class MostrarMapas extends ComandosServer {
 

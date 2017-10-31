@@ -9,7 +9,8 @@ import mensajeria.PaqueteUsuario;
 import servidor.Servidor;
 
 /**
- * The Class InicioSesion.
+ * Clase InicioSesion.
+ * Extiende de la clase ComandosServer
  */
 public class InicioSesion extends ComandosServer {
 

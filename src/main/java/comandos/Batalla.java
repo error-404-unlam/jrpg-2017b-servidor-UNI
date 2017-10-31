@@ -8,7 +8,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class Batalla.
+ * Clase Batalla.
+ * Extiende de la Clase ComandosServer
  */
 public class Batalla extends ComandosServer {
 

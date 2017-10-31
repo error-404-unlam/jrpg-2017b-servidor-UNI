@@ -10,7 +10,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class Talk.
+ * Clase Talk.
+ * Extiende de la clase ComandosServer
  */
 public class Talk extends ComandosServer {
 

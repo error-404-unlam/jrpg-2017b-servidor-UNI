@@ -8,7 +8,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class FinalizarBatalla.
+ * Clase FinalizarBatalla.
+ * Extiende de la clase ComnadosServer
  */
 public class FinalizarBatalla extends ComandosServer {
 
@@ -54,7 +55,7 @@ public class FinalizarBatalla extends ComandosServer {
     /**
      * Ejecutar desde NPC.
      *
-     * @param pfb the pfb
+     * @param pfb Objeto de la clase PaqueteFinalizarBatalla
      */
     // Recibe paquetes de un NPC y los envía a un cliente.
     public void ejecutarDesdeNPC(final PaqueteFinalizarBatalla pfb) {

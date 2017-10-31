@@ -6,7 +6,8 @@ import mensajeria.Paquete;
 import servidor.Servidor;
 
 /**
- * The Class Salir.
+ * Clase Salir.
+ * Extiende de la clase ComandosServer
  */
 public class Salir extends ComandosServer {
 

@@ -8,7 +8,8 @@ import mensajeria.PaqueteUsuario;
 import servidor.Servidor;
 
 /**
- * The Class Registro.
+ * Clase Registro.
+ * Extiende de la clase ComandosServer
  */
 public class Registro extends ComandosServer {
 

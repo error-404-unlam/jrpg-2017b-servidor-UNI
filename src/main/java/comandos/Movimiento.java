@@ -4,7 +4,8 @@ import mensajeria.PaqueteMovimiento;
 import servidor.Servidor;
 
 /**
- * The Class Movimiento.
+ * Clase Movimiento.
+ * Extiende de la clase ComandosServer
  */
 public class Movimiento extends ComandosServer {
 

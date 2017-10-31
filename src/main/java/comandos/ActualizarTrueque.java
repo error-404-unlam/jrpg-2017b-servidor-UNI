@@ -7,7 +7,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class ActualizarTrueque.
+ * Clase ActualizarTrueque.
+ * Extiende de la clase ComandosServer
  */
 public class ActualizarTrueque extends ComandosServer {
 

@@ -6,7 +6,8 @@ import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
 /**
- * The Class CrearPersonaje.
+ * Clase CrearPersonaje.
+ * Extiende de la clase ComandosServer
  */
 public class CrearPersonaje extends ComandosServer {
 

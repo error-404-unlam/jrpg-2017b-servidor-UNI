@@ -4,15 +4,16 @@ import mensajeria.Comando;
 import servidor.EscuchaCliente;
 
 /**
- * The Class ComandosServer.
+ * Clase ComandosServer.
+ * Extiende de la clase Comando
  */
 public abstract class ComandosServer extends Comando {
     protected EscuchaCliente escuchaCliente;
 
     /**
-     * Sets the escucha cliente.
+     * Setea escucha cliente.
      *
-     * @param escuchaCliente the new escucha cliente
+     * @param escuchaCliente Objeto de la clase EscuchaCliente
      */
     public void setEscuchaCliente(final EscuchaCliente escuchaCliente) {
         this.escuchaCliente = escuchaCliente;

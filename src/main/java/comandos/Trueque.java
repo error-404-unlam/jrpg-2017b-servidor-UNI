@@ -7,7 +7,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class Trueque.
+ * Clase Trueque.
+ * Extiende de la clase ComandosServer
  */
 public class Trueque extends ComandosServer {
 

@@ -5,7 +5,8 @@ import mensajeria.PaquetePersonaje;
 import servidor.Servidor;
 
 /**
- * The Class Conexion.
+ * Clase Conexion.
+ * Extiende de la clase ComandosServer
  */
 public class Conexion extends ComandosServer {
 

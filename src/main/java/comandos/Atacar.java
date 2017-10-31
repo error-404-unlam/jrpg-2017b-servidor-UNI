@@ -7,7 +7,8 @@ import servidor.EscuchaCliente;
 import servidor.Servidor;
 
 /**
- * The Class Atacar.
+ * Clase Atacar.
+ * Extiende de la clase ComandosServer
  */
 public class Atacar extends ComandosServer {
 
@@ -40,7 +41,7 @@ public class Atacar extends ComandosServer {
     /**
      * Ejecutar desde NPC.
      *
-     * @param pa the pa
+     * @param pa objeto de la clase ParqueteAtacar
      */
     // Recibe paquetes de un NPC y los envía a un cliente.
     public void ejecutarDesdeNPC(final PaqueteAtacar pa) {
