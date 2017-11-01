@@ -15,8 +15,23 @@ import mensajeria.Comando;
 import mensajeria.PaqueteDeMovimientos;
 import mensajeria.PaqueteDePersonajes;
 
+/**
+ * Clase ModuloNPC.
+ */
 public class ModuloNPC {
 
+	private static final long PERIODO = 500;
+	
+    /**
+     * Constructor.
+     */
+    public ModuloNPC() {
+
+    }
+
+	/**
+	 * Ejecutar.
+	 */
 	public static void ejecutar() {
 		cargarNPCsIniciales(); // Carga los NPCs iniciales.
 
@@ -26,9 +41,13 @@ public class ModuloNPC {
 			}
 		};
 		ScheduledExecutorService executor1 = Executors.newScheduledThreadPool(1);
-		executor1.scheduleAtFixedRate(epNPC, 0, 500, TimeUnit.MILLISECONDS); // El código de epNPC se ejecuta cada 0.5 segundos.
+		// El código de epNPC se ejecuta cada 0.5 segundos.
+        executor1.scheduleAtFixedRate(epNPC, 0, PERIODO, TimeUnit.MILLISECONDS);
 	}
 
+	/**
+	 * Cargar Npcs iniciales.
+	 */
 	private static void cargarNPCsIniciales() {
 		int cant;
 		int nroArchivo = 1;
@@ -38,7 +57,8 @@ public class ModuloNPC {
 		try {
 			cantFile = new Scanner(new File("npcs//start//cant.txt"));
 		} catch (FileNotFoundException e1) {
-			Servidor.getLog().append("No se pudo abrir el archivo cant.txt de la carpeta de NPCs iniciales." + System.lineSeparator());
+        Servidor.getLog().append("No se pudo abrir el archivo cant.txt de "
+        		+ "la carpeta de NPCs iniciales." + System.lineSeparator());
 			return;
 		}
 		cant = cantFile.nextInt();
@@ -47,41 +67,50 @@ public class ModuloNPC {
 		while (cant != 0) {
 			path = "npcs//start//" + nroArchivo + ".txt";
 			try {
-				new NPC(path); // El constructor carga el nuevo NPC a las listas del servidor por lo que el objeto no se pierde.
+               // El constructor carga el nuevo NPC a las listas del servidor por lo que el objeto no se pierde.
+				new NPC(path);
 			} catch (IOException e) {
-				Servidor.getLog().append("No se pudo cargar el archivo " + nroArchivo + ".txt de la carpeta de NPCs iniciales." + System.lineSeparator());
+            Servidor.getLog().append("No se pudo cargar el archivo "
+			   + nroArchivo + ".txt de la carpeta de NPCs iniciales." + System.lineSeparator());
 			}
 			nroArchivo++;
 			cant--;
 		}
 	}
 
+	/**
+	 * Enviar paquetes NPcs.
+	 */
 	private static void enviarPaquetesNPCs() {
 		Gson gson = new Gson();
 		for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 
 			if (conectado.getPaquetePersonaje().getEstado() != Estado.estadoOffline) {
 
-				PaqueteDePersonajes pdp = (PaqueteDePersonajes) new PaqueteDePersonajes(Servidor.getPersonajesConectados()).clone();
+                PaqueteDePersonajes pdp = (PaqueteDePersonajes) new PaqueteDePersonajes(
+                		Servidor.getPersonajesConectados()).clone();
 				pdp.setComando(Comando.CONEXION);
 				synchronized (conectado) {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(pdp));
 					} catch (IOException e) {
-						Servidor.getLog().append("No se pueden actualizar los PaquetePersonaje de los NPCs en este momento." + System.lineSeparator());
+                    Servidor.getLog().append("No se pueden actualizar los PaquetePersonaje de los NPCs "
+                    		+ "en este momento." + System.lineSeparator());
 					}
 				}
 			}
 
 			if (conectado.getPaquetePersonaje().getEstado() == Estado.estadoJuego) {
 
-				PaqueteDeMovimientos pdp = (PaqueteDeMovimientos) new PaqueteDeMovimientos(Servidor.getUbicacionPersonajes()).clone();
+                PaqueteDeMovimientos pdp = (PaqueteDeMovimientos) new PaqueteDeMovimientos(
+                				Servidor.getUbicacionPersonajes()).clone();
 				pdp.setComando(Comando.MOVIMIENTO);
 				synchronized (conectado) {
 					try {
 						conectado.getSalida().writeObject(gson.toJson(pdp));
 					} catch (IOException e) {
-						Servidor.getLog().append("No se pueden actualizar los PaqueteMovimiento de los NPCs en este momento." + System.lineSeparator());
+                     Servidor.getLog().append("No se pueden actualizar los PaqueteMovimiento de los NPCs "
+                     		+ "en este momento." + System.lineSeparator());
 					}
 				}
 			}

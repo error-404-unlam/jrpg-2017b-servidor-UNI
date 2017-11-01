@@ -6,41 +6,52 @@ import estados.Estado;
 import mensajeria.Comando;
 import mensajeria.PaqueteDeMovimientos;
 
+/**
+ * Clase AtencionMovimientos.
+ * Extiende de la clase Thread
+ */
 public class AtencionMovimientos extends Thread {
 
-	private final Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
-	public AtencionMovimientos() {
+    /**
+     * Constructor.
+     */
+    public AtencionMovimientos() {
 
-	}
+    }
 
-	public void run() {
+    /**
+     * Metodo de la clase Thread
+     */
+    public void run() {
 
-		synchronized (this) {
+        synchronized (this) {
 
-			try {
+            try {
 
-				while (true) {
+                while (true) {
 
-					// Espero a que se mueva alguien
-					wait();
+                    // Espero a que se mueva alguien
+                    wait();
 
-					// Le reenvio el movimiento a todos
-					for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+                    // Le reenvio el movimiento a todos
+                    for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 
-						if (conectado.getPaquetePersonaje().getEstado() == Estado.estadoJuego) {
+                        if (conectado.getPaquetePersonaje().getEstado() == Estado.estadoJuego) {
 
-							PaqueteDeMovimientos pdp = (PaqueteDeMovimientos) new PaqueteDeMovimientos(Servidor.getUbicacionPersonajes()).clone();
-							pdp.setComando(Comando.MOVIMIENTO);
-							synchronized (conectado) {
-								conectado.getSalida().writeObject(gson.toJson(pdp));
-							}
-						}
-					}
-				}
-			} catch (Exception e) {
-				Servidor.getLog().append("Falló al intentar enviar paqueteDeMovimientos \n");
-			}
-		}
-	}
+                            PaqueteDeMovimientos pdp = (PaqueteDeMovimientos) new PaqueteDeMovimientos(
+                                    Servidor.getUbicacionPersonajes()).clone();
+                            pdp.setComando(Comando.MOVIMIENTO);
+                            synchronized (conectado) {
+                                conectado.getSalida().writeObject(gson.toJson(pdp));
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                Servidor.getLog().append("Falló al intentar enviar paqueteDeMovimientos \n");
+            }
+        }
+    }
 }

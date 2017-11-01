@@ -7,8 +7,15 @@ import mensajeria.Paquete;
 import mensajeria.PaqueteUsuario;
 import servidor.Servidor;
 
+/**
+ * Clase Registro.
+ * Extiende de la clase ComandosServer
+ */
 public class Registro extends ComandosServer {
 
+	/* (non-Javadoc)
+	 * @see mensajeria.Comando#ejecutar()
+	 */
 	@Override
 	public void ejecutar() {
 		Paquete paqueteSv = new Paquete(null, 0);
@@ -28,7 +35,7 @@ public class Registro extends ComandosServer {
 				escuchaCliente.getSalida().writeObject(gson.toJson(paqueteSv));
 			}
 		} catch (IOException e) {
-			Servidor.getLog().append("Falló al intentar enviar registro\n");//OJO
+			Servidor.getLog().append("Falló al intentar enviar registro\n");
 		}
 
 	}

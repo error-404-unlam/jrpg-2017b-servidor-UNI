@@ -30,6 +30,9 @@ import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 import mundo.Tile;
 
+/**
+ * Clase NPC.
+ */
 public class NPC {
     private static final long PERIDO500 = 500;
 	private static final int REVIVE_EN_OTRA_MITAD_DEL_MAPA = 3;
@@ -53,6 +56,12 @@ public class NPC {
     private PaqueteFinalizarBatalla pfb;
     private String path;
 
+    /**
+     * Constructor
+     *
+     * @param path ruta del archivo
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public NPC(final String path) throws IOException { // Crea un NPC a partir
                                                         // de la dirección de un
                                                         // archivo.
@@ -150,6 +159,13 @@ public class NPC {
        //El codigo del NPC se ejecuta cada 0.5 segundos
     }
 
+    /**
+     * Baldosas A coordenadas.
+     *
+     * @param j posicion j
+     * @param i posicion i
+     * @return vector de float
+     */
     public static float[] baldosasACoordenadas(final int j, final int i) {
         float[] vec = new float[2];
 
@@ -162,6 +178,13 @@ public class NPC {
         return vec;
     }
 
+    /**
+     * Coordenadas A baldosas.
+     *
+     * @param x the x
+     * @param y the y
+     * @return vector de enteros
+     */
     public static int[] coordenadasABaldosas(final float x, final float y) {
         int[] vec = new int[2];
 
@@ -177,34 +200,74 @@ public class NPC {
         return vec;
     }
 
+    /**
+     * Obtiene el Paquete personaje.
+     *
+     * @return pp Objeto de la clase PaquetePersonaje
+     */
     public PaquetePersonaje getPp() {
         return pp;
     }
 
+    /**
+     * Setea el paquete personaje.
+     *
+     * @param ppaq Objeto de la clase PaquetePersonaje
+     */
     public void setPp(final PaquetePersonaje ppaq) {
         this.pp = ppaq;
     }
 
+    /**
+     * Obtiene el paquete movimiento.
+     *
+     * @return pm Objeto de la clase PaqueteMovimientos
+     */
     public PaqueteMovimiento getPm() {
         return pm;
     }
 
+    /**
+     * Setea el paquete movimiento.
+     *
+     * @param pmov Objeto de la clase PaqueteMovimiento
+     */
     public void setPm(final PaqueteMovimiento pmov) {
         this.pm = pmov;
     }
 
+    /**
+     * Obtiene el paquete batalla.
+     *
+     * @return pb Objeto de la clase PaqueteBatalla
+     */
     public PaqueteBatalla getPb() {
         return pb;
     }
 
+    /**
+     * Setea el paquete batalla.
+     *
+     * @param pbat Objeto de la clase PaqueteBatalla
+     */
     public void setPb(final PaqueteBatalla pbat) {
         this.pb = pbat;
     }
 
+    /**
+     * Obtiene el paquete atacar.
+     *
+     * @return pa Objeto de la clase PaqueteAtacar
+     */
     public PaqueteAtacar getPa() {
         return pa;
     }
 
+    /**
+     * Setea el paquete atacar.
+     *
+     * @param pat Objeto de la clase PaqueteAtacar
+     */
     public void setPa(final PaqueteAtacar pat) {
         this.pa = pat;
 
@@ -221,10 +284,20 @@ public class NPC {
         this.getPb().setMiTurno(true);
     }
 
+    /**
+     * Obtiene el paquete finalizar batalla.
+     *
+     * @return pfb Objeto de la clase PaqueteFinalizarBatalla
+     */
     public PaqueteFinalizarBatalla getPfb() {
         return pfb;
     }
 
+    /**
+     * Setea el paquete finalizar batalla.
+     *
+     * @param pfbat Obejto de la clase PaqueteFinalizarBatalla.
+     */
     public void setPfb(final PaqueteFinalizarBatalla pfbat) {
         this.pfb = pfbat;
 
@@ -240,12 +313,18 @@ public class NPC {
         this.morir();
     }
 
+    /**
+     * Enviar ataque.
+     */
     public void enviarAtaque() {
         Atacar at = new Atacar();
         at.ejecutarDesdeNPC(this.pa);
         this.setPa(null);
     }
 
+    /**
+     * Ganar batalla.
+     */
     public void ganarBatalla() {
         FinalizarBatalla fb = new FinalizarBatalla();
         fb.ejecutarDesdeNPC(this.pfb);
@@ -255,6 +334,9 @@ public class NPC {
         this.setPfb(null);
     }
 
+    /**
+     * Metodo Morir.
+     */
     public void morir() {
         if (this.persistencia == DESAPARECE) {
             morirTipo1(); // Desaparece.
@@ -268,12 +350,21 @@ public class NPC {
         }
     }
 
+    /**
+     * Morir tipo 1.
+     * Desaparece el NPC
+     */
     private void morirTipo1() {
         Servidor.getPersonajesConectados().remove(this.getId());
         Servidor.getUbicacionPersonajes().remove(this.getId());
         Servidor.getNPCsCargados().remove(this.getId());
     }
 
+    /**
+     * Morir tipo 2.
+     * NPC revive en otro rectangulo del mapa
+     * especificado en el archivo
+     */
     private void morirTipo2() {
         this.setPa(null);
         this.setPb(null);
@@ -336,6 +427,10 @@ public class NPC {
         Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
     }
 
+    /**
+     * Morir tipo 3.
+     * NPC revive en la otra mitad del mapa
+     */
     private void morirTipo3() {
         this.setPa(null);
         this.setPb(null);
@@ -360,18 +455,27 @@ public class NPC {
         Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
     }
 
+    /**
+     * Mover.
+     */
     public void mover() {
         if (this.movimiento == 1) {
             this.moverTipo1();
         }
     }
 
+    /**
+     * Batallar.
+     */
     public void batallar() {
         if (this.dificultad == 1) {
             this.batallarTipo1();
         }
     }
 
+    /**
+     * Mover tipo 1.
+     */
     private void moverTipo1() {
         if (Servidor.getUbicacionPersonajes().get(this.getId()).getDireccion() == INDICE1) {
             Servidor.getUbicacionPersonajes().get(this.getId()).setDireccion(INDICE5);
@@ -380,6 +484,9 @@ public class NPC {
         }
     }
 
+    /**
+     * Batallar tipo 1.
+     */
     private void batallarTipo1() {
         NPC npc = this;
         PaquetePersonaje paqueteNPC = (PaquetePersonaje) npc.getPp().clone();
@@ -434,6 +541,13 @@ public class NPC {
         }
     }
 
+    /**
+     * Crear personajes.
+     *
+     * @param paquetePersonaje Objeto de la clase PaquetePersonaje
+     * @param paqueteEnemigo Objeto de la clase PaquetePersonaje
+     * @return vector de personajes
+     */
     private static Personaje[] crearPersonajes(final PaquetePersonaje paquetePersonaje,
     		final PaquetePersonaje paqueteEnemigo) {
         Personaje personaje = null;
@@ -494,34 +608,74 @@ public class NPC {
         return devolver;
     }
 
+    /**
+     * Obtine id.
+     *
+     * @return id del npc
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setea id.
+     *
+     * @param id del Npc
+     */
     public void setId(final int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene dificultad.
+     *
+     * @return dificultad del npc
+     */
     public int getDificultad() {
         return dificultad;
     }
 
+    /**
+     * Setea dificultad.
+     *
+     * @param dificultad del npc
+     */
     public void setDificultad(final int dificultad) {
         this.dificultad = dificultad;
     }
 
+    /**
+     * Obtiene movimiento.
+     *
+     * @return movimiento del npc
+     */
     public int getMovimiento() {
         return movimiento;
     }
 
+    /**
+     * Setea the movimiento.
+     *
+     * @param movimiento del npc
+     */
     public void setMovimiento(final int movimiento) {
         this.movimiento = movimiento;
     }
 
+    /**
+     * Obtiene persistencia.
+     *
+     * @return persistencia del npc
+     */
     public int getPersistencia() {
         return persistencia;
     }
 
+    /**
+     * Setea persistencia.
+     *
+     * @param persistencia del npc
+     */
     public void setPersistencia(final int persistencia) {
         this.persistencia = persistencia;
     }
