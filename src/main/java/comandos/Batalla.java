@@ -21,7 +21,7 @@ public class Batalla extends ComandosServer {
                 // tiene cliente.
     public void ejecutar() {
         // Se crea el PaqueteBatalla a partir del EscuchaCliente del retador.
-        escuchaCliente.setPaqueteBatalla((PaqueteBatalla) gson.fromJson(cadenaLeida, PaqueteBatalla.class));
+        escuchaCliente.setPaqueteBatalla((PaqueteBatalla) getGson().fromJson(getCadenaLeida(), PaqueteBatalla.class));
         Servidor.getLog().append(escuchaCliente.getPaqueteBatalla().getId() + " quiere batallar con "
                 + escuchaCliente.getPaqueteBatalla().getIdEnemigo() + System.lineSeparator());
 
@@ -29,12 +29,12 @@ public class Batalla extends ComandosServer {
             // Se le asigna estadoBatalla en la lista de personajes del servidor
             // a ambos.
             Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteBatalla().getId())
-                    .setEstado(Estado.estadoBatalla);
+                    .setEstado(Estado.getEstadoBatalla());
             Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteBatalla().getIdEnemigo())
-                    .setEstado(Estado.estadoBatalla);
+                    .setEstado(Estado.getEstadoBatalla());
             escuchaCliente.getPaqueteBatalla().setMiTurno(true);
             // Se le envía el PaqueteBatalla al cliente del retador.
-            escuchaCliente.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteBatalla()));
+            escuchaCliente.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaqueteBatalla()));
 
             // Si tiene ID positivo, el enemigo es un usuario.
             if (escuchaCliente.getPaqueteBatalla().getIdEnemigo() > 0) {
@@ -47,7 +47,7 @@ public class Batalla extends ComandosServer {
                         escuchaCliente.getPaqueteBatalla().setMiTurno(false);
                         // Se le envía el PaqueteBatalla al cliente del que fue
                         // retado.
-                        conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteBatalla()));
+                        conectado.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaqueteBatalla()));
                         break; // Sale del ciclo for each
                     }
                 }

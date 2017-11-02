@@ -15,7 +15,7 @@ public class Movimiento extends ComandosServer {
     @Override
     public void ejecutar() {
         escuchaCliente.setPaqueteMovimiento(
-                (PaqueteMovimiento) (gson.fromJson((String) cadenaLeida, PaqueteMovimiento.class)));
+                (PaqueteMovimiento) (getGson().fromJson((String) getCadenaLeida(), PaqueteMovimiento.class)));
 
         Servidor.getUbicacionPersonajes().get(escuchaCliente.getPaqueteMovimiento().getIdPersonaje())
                 .setPosX(escuchaCliente.getPaqueteMovimiento().getPosX());

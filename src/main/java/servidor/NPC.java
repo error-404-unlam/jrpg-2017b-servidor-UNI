@@ -147,9 +147,9 @@ public class NPC {
         // Crea el thread para controlar al NPC.
         Runnable mNPC = new Runnable() {
             public void run() {
-                if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.estadoJuego) {
+                if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.getEstadoJuego()) {
                     npc.mover();
-                } else if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.estadoBatalla) {
+                } else if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.getEstadoBatalla()) {
                     npc.batallar();
                 }
             }
@@ -424,7 +424,7 @@ public class NPC {
         pm.setPosX(baldosasACoordenadas(j, i)[0]);
         pm.setPosY(baldosasACoordenadas(j, i)[1]);
         npcFile.close();
-        Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
+        Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.getEstadoJuego());
     }
 
     /**
@@ -452,7 +452,7 @@ public class NPC {
                 + this.pp.getMapa() + "." + System.lineSeparator());
         pm.setPosX(baldosasACoordenadas(j, i)[0]);
         pm.setPosY(baldosasACoordenadas(j, i)[1]);
-        Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.estadoJuego);
+        Servidor.getNPCsCargados().get(this.id).getPp().setEstado(Estado.getEstadoJuego());
     }
 
     /**
@@ -495,7 +495,7 @@ public class NPC {
         Personaje personaje = crearPersonajes(paqueteNPC, paqueteEnemigo)[0];
         Personaje enemigo = crearPersonajes(paqueteNPC, paqueteEnemigo)[1];
 
-        while (npc.getPp().getEstado() == Estado.estadoBatalla && npc.getPb() != null) { // Mientras
+        while (npc.getPp().getEstado() == Estado.getEstadoBatalla() && npc.getPb() != null) { // Mientras
                                                                                             // dure
                                                                                             // la
                                                                                             // batalla
@@ -506,7 +506,7 @@ public class NPC {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (npc.getPp().getEstado() == Estado.estadoBatalla && npc.getPb() != null && npc.getPb().isMiTurno()) {
+            if (npc.getPp().getEstado() == Estado.getEstadoBatalla() && npc.getPb() != null && npc.getPb().isMiTurno()) {
                 // Si es mi turno, calcular daño recibido
                 int danio = personaje.getSalud() - npc.getPa().getNuevaSaludEnemigo();
                 personaje.reducirSalud(danio); // Actualiza salud del NPC.

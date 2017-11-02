@@ -17,7 +17,7 @@ public class ActualizarTrueque extends ComandosServer {
      */
     @Override
     public void ejecutar() {
-        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) gson.fromJson(cadenaLeida, PaquetePersonaje.class));
+        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().fromJson(getCadenaLeida(), PaquetePersonaje.class));
 
         Servidor.getConector().actualizarInventario(escuchaCliente.getPaquetePersonaje());
         Servidor.getConector().actualizarPersonaje(escuchaCliente.getPaquetePersonaje());
@@ -28,7 +28,7 @@ public class ActualizarTrueque extends ComandosServer {
 
         for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
             try {
-                conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaquetePersonaje()));
+                conectado.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaquetePersonaje()));
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 Servidor.getLog().append("Falló al intentar enviar actualizacion de trueque a:"

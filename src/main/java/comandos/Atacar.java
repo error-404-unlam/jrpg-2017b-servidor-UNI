@@ -19,12 +19,12 @@ public class Atacar extends ComandosServer {
                 // NPC. Un NPC no envía paquetes con este método porque no tiene
                 // cliente.
     public void ejecutar() {
-        escuchaCliente.setPaqueteAtacar((PaqueteAtacar) gson.fromJson(cadenaLeida, PaqueteAtacar.class));
+        escuchaCliente.setPaqueteAtacar((PaqueteAtacar) getGson().fromJson(getCadenaLeida(), PaqueteAtacar.class));
         if (escuchaCliente.getPaqueteAtacar().getIdEnemigo() > 0) {
             for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
                 if (conectado.getIdPersonaje() == escuchaCliente.getPaqueteAtacar().getIdEnemigo()) {
                     try {
-                        conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteAtacar()));
+                        conectado.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaqueteAtacar()));
                     } catch (IOException e) {
                         Servidor.getLog().append(
                               "Falló al intentar enviar ataque a:" + conectado.getPaquetePersonaje().getId() + "\n");
@@ -48,7 +48,7 @@ public class Atacar extends ComandosServer {
         for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
             if (conectado.getIdPersonaje() == pa.getIdEnemigo()) {
                 try {
-                    conectado.getSalida().writeObject(gson.toJson(pa));
+                    conectado.getSalida().writeObject(getGson().toJson(pa));
                 } catch (IOException e) {
                     Servidor.getLog().append(
                             "Falló al intentar enviar ataque a:" + conectado.getPaquetePersonaje().getId() + "\n");

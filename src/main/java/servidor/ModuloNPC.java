@@ -85,7 +85,7 @@ public class ModuloNPC {
 		Gson gson = new Gson();
 		for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
 
-			if (conectado.getPaquetePersonaje().getEstado() != Estado.estadoOffline) {
+			if (conectado.getPaquetePersonaje().getEstado() != Estado.getEstadoOffLine()) {
 
                 PaqueteDePersonajes pdp = (PaqueteDePersonajes) new PaqueteDePersonajes(
                 		Servidor.getPersonajesConectados()).clone();
@@ -100,7 +100,7 @@ public class ModuloNPC {
 				}
 			}
 
-			if (conectado.getPaquetePersonaje().getEstado() == Estado.estadoJuego) {
+			if (conectado.getPaquetePersonaje().getEstado() == Estado.getEstadoJuego()) {
 
                 PaqueteDeMovimientos pdp = (PaqueteDeMovimientos) new PaqueteDeMovimientos(
                 				Servidor.getUbicacionPersonajes()).clone();

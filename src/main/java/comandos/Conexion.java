@@ -16,7 +16,7 @@ public class Conexion extends ComandosServer {
     @Override
     public void ejecutar() {
         escuchaCliente
-                .setPaquetePersonaje((PaquetePersonaje) (gson.fromJson(cadenaLeida, PaquetePersonaje.class)).clone());
+                .setPaquetePersonaje((PaquetePersonaje) (getGson().fromJson(getCadenaLeida(), PaquetePersonaje.class)).clone());
 
         Servidor.getPersonajesConectados().put(escuchaCliente.getPaquetePersonaje().getId(),
                 (PaquetePersonaje) escuchaCliente.getPaquetePersonaje().clone());

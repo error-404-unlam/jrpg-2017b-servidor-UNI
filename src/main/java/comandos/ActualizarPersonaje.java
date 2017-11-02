@@ -17,7 +17,7 @@ public class ActualizarPersonaje extends ComandosServer {
      */
     @Override
     public void ejecutar() {
-        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) gson.fromJson(cadenaLeida, PaquetePersonaje.class));
+        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().fromJson(getCadenaLeida(), PaquetePersonaje.class));
 
         if (escuchaCliente.getPaquetePersonaje().getId() < 0) {
             Servidor.getLog().append("El NPC " + escuchaCliente.getPaquetePersonaje().getId()
@@ -32,7 +32,7 @@ public class ActualizarPersonaje extends ComandosServer {
 
         for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
             try {
-                conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaquetePersonaje()));
+                conectado.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaquetePersonaje()));
             } catch (IOException e) {
                 Servidor.getLog().append("Falló al intentar enviar paquetePersonaje a:"
                         + conectado.getPaquetePersonaje().getId() + "\n");

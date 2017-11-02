@@ -20,19 +20,19 @@ public class FinalizarBatalla extends ComandosServer {
                 // NPC. El NPC no envía paquetes con este método porque no tiene
                 // cliente.
     public void ejecutar() {
-        PaqueteFinalizarBatalla paqueteFinalizarBatalla = (PaqueteFinalizarBatalla) gson.fromJson(cadenaLeida,
+        PaqueteFinalizarBatalla paqueteFinalizarBatalla = (PaqueteFinalizarBatalla) getGson().fromJson(getCadenaLeida(),
                 PaqueteFinalizarBatalla.class);
         escuchaCliente.setPaqueteFinalizarBatalla(paqueteFinalizarBatalla);
         Servidor.getConector().actualizarInventario(paqueteFinalizarBatalla.getGanadorBatalla());
         Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getId())
-                .setEstado(Estado.estadoJuego);
+                .setEstado(Estado.getEstadoJuego());
         if (escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo() > 0) {
             Servidor.getPersonajesConectados().get(escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo())
-                    .setEstado(Estado.estadoJuego);
+                    .setEstado(Estado.getEstadoJuego());
             for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
                 if (conectado.getIdPersonaje() == escuchaCliente.getPaqueteFinalizarBatalla().getIdEnemigo()) {
                     try {
-                        conectado.getSalida().writeObject(gson.toJson(escuchaCliente.getPaqueteFinalizarBatalla()));
+                        conectado.getSalida().writeObject(getGson().toJson(escuchaCliente.getPaqueteFinalizarBatalla()));
                     } catch (IOException e) {
                         Servidor.getLog().append("Falló al intentar enviar finalizarBatalla a:"
                                 + conectado.getPaquetePersonaje().getId() + "\n");
@@ -61,11 +61,11 @@ public class FinalizarBatalla extends ComandosServer {
     public void ejecutarDesdeNPC(final PaqueteFinalizarBatalla pfb) {
         // Si se llega a ejecutar esto, quiere decir que el NPC ganó la batalla.
         try {
-            Servidor.getPersonajesConectados().get(pfb.getId()).setEstado(Estado.estadoJuego);
-            Servidor.getPersonajesConectados().get(pfb.getIdEnemigo()).setEstado(Estado.estadoJuego);
+            Servidor.getPersonajesConectados().get(pfb.getId()).setEstado(Estado.getEstadoJuego());
+            Servidor.getPersonajesConectados().get(pfb.getIdEnemigo()).setEstado(Estado.getEstadoJuego());
             for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
                 if (conectado.getIdPersonaje() == pfb.getIdEnemigo()) {
-                    conectado.getSalida().writeObject(gson.toJson(pfb));
+                    conectado.getSalida().writeObject(getGson().toJson(pfb));
                 }
             }
         } catch (IOException e) {
