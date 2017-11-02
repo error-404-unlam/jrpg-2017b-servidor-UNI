@@ -149,7 +149,8 @@ public class NPC {
             public void run() {
                 if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.getEstadoJuego()) {
                     npc.mover();
-                } else if (Servidor.getPersonajesConectados().get(npc.getId()).getEstado() == Estado.getEstadoBatalla()) {
+                } else if (Servidor.getPersonajesConectados().get(npc.getId()).
+                		getEstado() == Estado.getEstadoBatalla()) {
                     npc.batallar();
                 }
             }
@@ -506,7 +507,8 @@ public class NPC {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (npc.getPp().getEstado() == Estado.getEstadoBatalla() && npc.getPb() != null && npc.getPb().isMiTurno()) {
+            if (npc.getPp().getEstado() == Estado.getEstadoBatalla()
+            		&& npc.getPb() != null && npc.getPb().isMiTurno()) {
                 // Si es mi turno, calcular daño recibido
                 int danio = personaje.getSalud() - npc.getPa().getNuevaSaludEnemigo();
                 personaje.reducirSalud(danio); // Actualiza salud del NPC.

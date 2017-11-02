@@ -17,7 +17,8 @@ public class ActualizarTrueque extends ComandosServer {
      */
     @Override
     public void ejecutar() {
-        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().fromJson(getCadenaLeida(), PaquetePersonaje.class));
+        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().
+        		fromJson(getCadenaLeida(), PaquetePersonaje.class));
 
         Servidor.getConector().actualizarInventario(escuchaCliente.getPaquetePersonaje());
         Servidor.getConector().actualizarPersonaje(escuchaCliente.getPaquetePersonaje());

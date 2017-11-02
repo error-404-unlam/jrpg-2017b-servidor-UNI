@@ -17,7 +17,8 @@ public class ActualizarPersonaje extends ComandosServer {
      */
     @Override
     public void ejecutar() {
-        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().fromJson(getCadenaLeida(), PaquetePersonaje.class));
+        escuchaCliente.setPaquetePersonaje((PaquetePersonaje) getGson().
+        		fromJson(getCadenaLeida(), PaquetePersonaje.class));
 
         if (escuchaCliente.getPaquetePersonaje().getId() < 0) {
             Servidor.getLog().append("El NPC " + escuchaCliente.getPaquetePersonaje().getId()

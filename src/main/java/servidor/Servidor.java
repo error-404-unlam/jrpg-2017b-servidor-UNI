@@ -243,7 +243,7 @@ public class Servidor extends Thread {
 	/**
 	 * Mensaje a todos.
 	 *
-	 * @param el contador
+	 * @param contador cantidad de personajes conectados
 	 * @return boolean, true si se mando el msj a todos
 	 */
 	public static boolean mensajeAAll(final int contador) {
