@@ -228,16 +228,16 @@ public class Servidor extends Thread {
 	 * @return boolean
 	 */
 	public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
-		boolean result = false;
+		String nom;
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
-			String nom = personaje.getValue().getNombre();
+			nom = personaje.getValue().getNombre();
 			if (personaje.getValue().getNombre().equals(pqm.getUserReceptor())) {
 				Servidor.log.append(
                        pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
-				result = true;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	/**
