@@ -21,7 +21,6 @@ public class Talk extends ComandosServer {
     @Override
     public void ejecutar() {
         int idUser = 0;
-        int contador = 0;
         PaqueteMensaje paqueteMensaje = (PaqueteMensaje) (getGson().fromJson(getCadenaLeida(), PaqueteMensaje.class));
 
         if (!(paqueteMensaje.getUserReceptor() == null)) {
@@ -64,7 +63,7 @@ public class Talk extends ComandosServer {
                     }
                 }
             }
-            Servidor.mensajeAAll(contador);
+            Servidor.mensajeAAll();
         }
     }
 }

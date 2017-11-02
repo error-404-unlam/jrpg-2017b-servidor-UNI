@@ -241,23 +241,12 @@ public class Servidor extends Thread {
 	}
 
 	/**
-	 * Mensaje a todos.
-	 *
-	 * @param contador cantidad de personajes conectados
-	 * @return boolean, true si se mando el msj a todos
+	 * Envia un mensaje a todos
 	 */
-	public static boolean mensajeAAll(final int contador) {
-		boolean result = true;
-		if (personajesConectados.size() != contador + 1) {
-			Servidor.log
-                 .append("Uno o más de todos los usuarios se ha desconectado, se ha mandado el mensaje a los demas."
-							+ System.lineSeparator());
-			result = false;
-		} else {
-           Servidor.log.append("Se ha enviado un mensaje a todos los usuarios" + System.lineSeparator());
-			result = true;
-		}
-		return result;
+	public static void mensajeAAll() {
+		Servidor.log
+        .append("Uno o más de todos los usuarios se ha desconectado, se ha mandado el mensaje a los demas."
+					+ System.lineSeparator());
 	}
 
 	/**
