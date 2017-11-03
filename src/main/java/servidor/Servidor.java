@@ -228,12 +228,10 @@ public class Servidor extends Thread {
 	 * @return boolean
 	 */
 	public static boolean mensajeAUsuario(final PaqueteMensaje pqm) {
-		String nom;
 		for (Map.Entry<Integer, PaquetePersonaje> personaje : personajesConectados.entrySet()) {
-			nom = personaje.getValue().getNombre();
 			if (personaje.getValue().getNombre().equals(pqm.getUserReceptor())) {
 				Servidor.log.append(
-                       pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
+						pqm.getUserEmisor() + " envió mensaje a " + pqm.getUserReceptor() + System.lineSeparator());
 				return true;
 			}
 		}
@@ -245,7 +243,7 @@ public class Servidor extends Thread {
 	 */
 	public static void mensajeAAll() {
 		Servidor.log
-        .append("Uno o más de todos los usuarios se ha desconectado, se ha mandado el mensaje a los demas."
+        .append("Se ha enviado el mensaje a todos los usuarios."
 					+ System.lineSeparator());
 	}
 
