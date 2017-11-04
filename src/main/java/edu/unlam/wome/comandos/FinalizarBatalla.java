@@ -35,6 +35,7 @@ public class FinalizarBatalla extends ComandosServer {
                         conectado.getSalida().writeObject(getGson().
                         		toJson(escuchaCliente.getPaqueteFinalizarBatalla()));
                     } catch (IOException e) {
+                    	e.printStackTrace();
                         Servidor.getLog().append("Falló al intentar enviar finalizarBatalla a:"
                                 + conectado.getPaquetePersonaje().getId() + "\n");
                     }

@@ -61,6 +61,7 @@ public class Batalla extends ComandosServer {
                         .setPb(escuchaCliente.getPaqueteBatalla());
             }
         } catch (IOException e) {
+        	e.printStackTrace();
             Servidor.getLog().append("Falló al intentar enviar Batalla \n");
         }
 
