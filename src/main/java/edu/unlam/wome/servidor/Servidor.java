@@ -35,6 +35,7 @@ public class Servidor extends Thread {
 	// Para NPCs. Complementa a clientesConectados ya que los NPCs no tienen
 	// cliente.
 	private static Map<Integer, NPC> npcsCargados = new HashMap<>();
+	private static Map<Integer, NPCYAML> npcsCargadosYAML = new HashMap<>();
 
 	// Tiene personajes con cliente y NPCs.
 	private static Map<Integer, PaquetePersonaje> personajesConectados = new HashMap<>();
@@ -195,6 +196,7 @@ public class Servidor extends Thread {
 			serverSocket = new ServerSocket(puerto);
 			log.append("Creando NPCs..." + System.lineSeparator());
 			ModuloNPC.ejecutar();
+			//ModuloNPCYAML.ejecutar();
 			log.append("Servidor esperando conexiones..." + System.lineSeparator());
 			String ipRemota;
 
@@ -344,6 +346,15 @@ public class Servidor extends Thread {
 	 */
 	public static void setAtencionMovimientos(final AtencionMovimientos atencionMovimientos) {
 		Servidor.atencionMovimientos = atencionMovimientos;
+	}
+
+	/**
+	 * Obtiene NPcs cargados (YAML).
+	 *
+	 * @return NPcs cargados Mapa con los NPCS cargados
+	 */
+	public static Map<Integer, NPCYAML> getNPCsCargadosYAML() {
+		return npcsCargadosYAML;
 	}
 
 
