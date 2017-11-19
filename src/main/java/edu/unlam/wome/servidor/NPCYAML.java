@@ -522,8 +522,8 @@ public class NPCYAML {
 
         Casta casta = null;
         try {
-            casta = (Casta) Class.forName("dominio" + "." + paquetePersonaje.getCasta()).newInstance();
-            personaje = (Personaje) Class.forName("dominio" + "." + paquetePersonaje.getRaza())
+            casta = (Casta) Class.forName("edu.unlam.wome.dominio.main" + "." + paquetePersonaje.getCasta()).newInstance();
+            personaje = (Personaje) Class.forName("edu.unlam.wome.dominio.main" + "." + paquetePersonaje.getRaza())
                     .getConstructor(String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE, Integer.TYPE,
                             Casta.class, Integer.TYPE, Integer.TYPE, Integer.TYPE)
                     .newInstance(nombre, salud, energia, fuerza, destreza, inteligencia, casta, experiencia, nivel, id);
