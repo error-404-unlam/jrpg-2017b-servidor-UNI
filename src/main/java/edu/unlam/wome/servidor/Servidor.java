@@ -72,7 +72,7 @@ public class Servidor extends Thread {
 	private static final int ANCHO_TITULO = 200;
 	private static final int ALTO_TITULO = 30;
 
-	private static JTextArea log;
+	public static JTextArea log;
 
 	private static AtencionConexiones atencionConexiones;
 	private static AtencionMovimientos atencionMovimientos;

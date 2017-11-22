@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 17-nov-2017 22:22:56 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="entidades.EntMochila" table="mochila">
+    <class name="edu.unlam.wome.entidades.EntMochila" table="mochila">
         <id name="idMochila" type="int"  column="idMochila" />
         <property name="item1" type="int"  column="item1" />
         <property name="item2" type="int"  column="item2" />

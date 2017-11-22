@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 18-nov-2017 0:30:18 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="entidades.EntItem" table="item">
+    <class name="edu.unlam.wome.entidades.EntItem" table="item">
         <id name="idItem" type="int"  column = "idItem"/>
         <property name="nombre" type="java.lang.String" column="nombre" />
         <property name="wereable" type="int" column = "wereable" />

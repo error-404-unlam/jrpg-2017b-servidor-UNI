@@ -4,7 +4,7 @@
 <!-- Generated 17-nov-2017 18:11:20 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
 
-    <class name="entidades.EntPersonaje" table="personaje">
+    <class name="edu.unlam.wome.entidades.EntPersonaje" table="personaje">
         <id name="idPersonaje" type="int" column="idPersonaje" >
          <generator class="increment" />
         </id>
