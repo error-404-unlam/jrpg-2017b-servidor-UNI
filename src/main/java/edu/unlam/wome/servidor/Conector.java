@@ -43,6 +43,7 @@ public class Conector {
 			EntRegistro.actualizar(acceso, paqueteUsuario, idPersonajeNuevo);
 			EntInventario.asignarInventario(acceso, idPersonajeNuevo);
 			EntMochila.asignarMochila(acceso, idPersonajeNuevo);
+			EntPersonaje.actualizarPersonaje(acceso, paquetePersonaje, idPersonajeNuevo);
 			Servidor.log.append("El usuario " + paqueteUsuario.getUsername() + " ha creado el personaje "
 					+ paquetePersonaje.getId() + System.lineSeparator());
 			return true;
