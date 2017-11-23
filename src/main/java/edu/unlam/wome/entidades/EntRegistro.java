@@ -8,8 +8,6 @@ import org.hibernate.Session;
 
 import edu.unlam.wome.mensajeria.PaqueteUsuario;
 
-
-
 public class EntRegistro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -20,19 +18,45 @@ public class EntRegistro implements Serializable{
 	public EntRegistro(){
 		
 	}
-
+	
 	public EntRegistro(String usuario, String password, int idPersonaje) {
 		this.usuario = usuario;
 		this.password = password;
 		this.idPersonaje = idPersonaje;
 	}
 	
-	private static boolean existe(Acceso acceso, EntRegistro r) {
+	public static boolean guardar(Acceso acceso, PaqueteUsuario user) {
+		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), 0);
 		Session session = acceso.getFabrica().openSession();
-		EntRegistro e = (EntRegistro) session.createQuery("SELECT r FROM EntRegistro r WHERE usuario=" + "'" + r.getUsuario() + "'").uniqueResult();
-		session.close();
-		return e == null;
+		session.beginTransaction();
+		try {
+			session.flush();
+			session.saveOrUpdate(reg);
+			session.flush();
+			session.getTransaction().commit();
+		} catch (HibernateException | SecurityException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return reg != null;
 	}
+	
+	public static void actualizar(Acceso acceso, PaqueteUsuario user, int idPersonaje) {
+		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), idPersonaje);
+		Session session = acceso.getFabrica().openSession();
+		session.beginTransaction();
+		try {
+			session.saveOrUpdate(reg);
+			session.flush();
+			session.getTransaction().commit();
+		} catch (HibernateException | SecurityException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+	
 	
 	public static EntRegistro dameUsuario(Acceso acceso, PaqueteUsuario paqueteUsuario) {
 		Session session = acceso.getFabrica().openSession();
@@ -46,29 +70,9 @@ public class EntRegistro implements Serializable{
 		Session session = acceso.getFabrica().openSession();
 		int idPersonaje = (int) session.createQuery("SELECT MAX(idPersonaje) AS id FROM EntPersonaje").uniqueResult();
 		session.close();
-		return idPersonaje + 1;
+		return idPersonaje;
 	}
 	
-	public static boolean registrarUsuario(Acceso conexion, PaqueteUsuario user)  {
-		int idPersonaje = obtenerIdPersonaje(conexion);
-		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), idPersonaje);
-		
-		Session session = conexion.getFabrica().openSession();
-		session.beginTransaction();
-		
-		try {
-			session.flush();
-			session.saveOrUpdate(reg);
-			session.flush();
-			session.getTransaction().commit();
-		} catch (HibernateException | SecurityException e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	
-		return reg != null;
-	}
 	
 	public static boolean login(Acceso acceso, PaqueteUsuario paqueteUsuario) {
 		Session session = acceso.getFabrica().openSession();

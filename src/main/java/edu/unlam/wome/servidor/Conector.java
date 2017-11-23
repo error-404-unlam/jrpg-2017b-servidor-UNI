@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
+import edu.unlam.wome.dominio.main.Personaje;
 import edu.unlam.wome.entidades.Acceso;
 import edu.unlam.wome.entidades.EntInventario;
 import edu.unlam.wome.entidades.EntItem;
@@ -15,7 +16,7 @@ import edu.unlam.wome.mensajeria.PaqueteUsuario;
 
 public class Conector {
 
-	private Acceso acceso; // 
+	private Acceso acceso; 
 
 	public void connect() {
 		acceso = new Acceso("hibernate.cfg.xml");
@@ -28,7 +29,7 @@ public class Conector {
 	}
 
 	public boolean registrarUsuario(PaqueteUsuario user) {
-		if(EntRegistro.registrarUsuario(acceso, user)) {
+		if(EntRegistro.guardar(acceso, user)) {
 			Servidor.log.append("El usuario " + user.getUsername() + " se ha registrado." + System.lineSeparator());
 			return true;
 		}
@@ -37,22 +38,17 @@ public class Conector {
 	}
 
 	public boolean registrarPersonaje(PaquetePersonaje paquetePersonaje, PaqueteUsuario paqueteUsuario) {
-		EntRegistro entRegistro = EntRegistro.dameUsuario(acceso, paqueteUsuario);
-		paquetePersonaje.setId(entRegistro.getIdPersonaje());
-		int idPersonaje = EntPersonaje.registrarPersonaje(acceso, paquetePersonaje);
-		if(idPersonaje != -1) {
-			paqueteUsuario.setIdPj(idPersonaje);
-			if(EntRegistro.registrarUsuario(acceso, paqueteUsuario)) {
-				if(registrarInventarioMochila(idPersonaje)) {
-						EntPersonaje.actualizarPersonaje(acceso,paquetePersonaje,idPersonaje);
-						Servidor.log.append("El usuario " + paqueteUsuario.getUsername() + " ha creado el personaje "
-								+ paquetePersonaje.getId() + System.lineSeparator());
-						return true;
-				}
-			}
+		int idPersonajeNuevo = EntPersonaje.registrarPersonaje(acceso, paquetePersonaje);
+		if(idPersonajeNuevo != -1) {
+			EntRegistro.actualizar(acceso, paqueteUsuario, idPersonajeNuevo);
+			EntInventario.asignarInventario(acceso, idPersonajeNuevo);
+			EntMochila.asignarMochila(acceso, idPersonajeNuevo);
+			Servidor.log.append("El usuario " + paqueteUsuario.getUsername() + " ha creado el personaje "
+					+ paquetePersonaje.getId() + System.lineSeparator());
+			return true;
 		}
-		Servidor.log.append(
-				"Error al intentar crear el personaje " + paquetePersonaje.getNombre() + System.lineSeparator());
+		Servidor.log.append("Error al registrar la mochila y el inventario del usuario " + 
+				paqueteUsuario.getUsername() + " con el personaje" + paquetePersonaje.getId() + System.lineSeparator());
 		return false;
 	}
 
@@ -102,9 +98,9 @@ public class Conector {
 	public PaquetePersonaje getPersonaje(PaqueteUsuario user) throws IOException {
 		int i = 0;
 		int j = 0;
-		
+
 		EntPersonaje personaje = EntPersonaje.damePersonaje(
-				acceso, EntRegistro.dameUsuario(acceso, user).getIdPersonaje() - 1);
+				acceso, EntRegistro.dameUsuario(acceso, user).getIdPersonaje());
 		EntMochila mochila = EntMochila.dameMochila(acceso, personaje.getIdPersonaje());
 		LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
 		
