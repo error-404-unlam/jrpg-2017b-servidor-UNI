@@ -49,12 +49,6 @@ public class TestConector {
 		System.out.println(moc);
 	}
 	
-	@Test
-	public void probarDameItem(){
-		EntItem it = EntItem.dameItem(acceso, 1);
-		System.out.println(it);
-		System.out.println(EntItem.dameListadoAtributos(it));
-	}
 	
 	@Test
 	public void probarActualizarPersonaje() throws IOException {
