@@ -70,7 +70,7 @@ public class EntRegistro implements Serializable{
 		session.beginTransaction();
 		try {
 			session.flush();
-			session.saveOrUpdate(reg);
+			session.save(reg);
 			session.flush();
 			session.getTransaction().commit();
 		} catch (HibernateException | SecurityException e) {
@@ -94,7 +94,7 @@ public class EntRegistro implements Serializable{
 		Session session = acceso.getFabrica().openSession();
 		session.beginTransaction();
 		try {
-			session.saveOrUpdate(reg);
+			session.update(reg);
 			session.flush();
 			session.getTransaction().commit();
 		} catch (HibernateException | SecurityException e) {

@@ -70,7 +70,6 @@ public class EscuchaCliente extends Thread {
 
             String cadenaLeida = (String) entrada.readObject();
             while (!((paquete = gson.fromJson(cadenaLeida, Paquete.class)).getComando() == Comando.DESCONECTAR)) {
-sasasa
                 comand = (ComandosServer) paquete.getObjeto(Comando.NOMBREPAQUETE);
                 comand.setCadena(cadenaLeida);
                 comand.setEscuchaCliente(this);
