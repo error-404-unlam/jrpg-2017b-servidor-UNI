@@ -85,7 +85,7 @@ public class Conector {
 			paquetePersonaje.eliminarItems();
 			LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
 			while(j < 9) {
-				paquetePersonaje.eliminarItems();
+				//paquetePersonaje.eliminarItems();
 				if(listadoItems.get(i) != -1) {
 					EntItem item = EntItem.dameItem(acceso, listadoItems.get(i));
 					paquetePersonaje.anadirItem(
@@ -119,7 +119,8 @@ public class Conector {
 		pa.setNombre(personaje.getNombre());
 		pa.setExperiencia(personaje.getExperiencia());
 		pa.setNivel(personaje.getNivel());
-		pa.setItems(new ArrayList<>());
+		
+		//pa.setItems(new ArrayList<>());
 		while(j < 9) {
 			if(listadoItems.get(i) != -1) {
 				EntItem item = EntItem.dameItem(acceso,listadoItems.get(i) );
