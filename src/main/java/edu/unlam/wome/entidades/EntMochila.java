@@ -8,7 +8,48 @@ import org.hibernate.Session;
 
 import edu.unlam.wome.mensajeria.PaquetePersonaje;
 
-
+/**
+ * <h2>Mapa de la tabla mochila de la base de datos</h2>
+ * <h3>Atributos</h3>
+ * <ul>
+ * 		<li>idMochila : int</li>
+ * 		<li>item1 : int</li>
+ * 		<li>item1 : int</li>
+ * <li>item1 : int</li>
+ * <li>item2 : int</li>
+ * <li>item3 : int</li>
+ * <li>item4 : int</li>
+ * <li>item5 : int</li>
+ * <li>item6 : int</li>
+ * <li>item7 : int</li>
+ * <li>item8 : int</li>
+ * <li>item9 : int</li>
+ * <li>item10 : int</li>
+ * <li>item11 : int</li>
+ * <li>item12 : int</li>
+ * <li>item13 : int</li>
+ * <li>item14 : int</li>
+ * <li>item15 : int</li>
+ * <li>item16 : int</li>
+ * <li>item17 : int</li>
+ * <li>item18 : int</li>
+ * <li>item19: int</li>
+ * <li>item20 : int</li>
+ * </ul>
+ * <h3>Metodos Estàticos</h3>
+ * <ul>
+ * 		<li>public static void actualizarMochila(Acceso acceso, EntMochila mochila)</li>
+ * 		<li>public static EntMochila cargarMochila(PaquetePersonaje personaje)</li>
+ * 		<li>public static EntMochila dameMochila(Acceso acceso, int idMochila)</li>
+ * 		<li>public static boolean asignarMochila(Acceso conexion, int idMochila) </li>
+ * </ul>
+ * <h3>Metodos</h3>
+ * <ul>
+ * 		<li>Accesos getter and setter</li>
+ * </ul>
+ * @see hibernate.cfg.xml
+ * @see mochila.hbm.xml
+ */
 
 public class EntMochila implements Serializable{
 
@@ -90,6 +131,12 @@ public class EntMochila implements Serializable{
 		this.item20 = personaje.getItemID(19);
 	}
 
+	
+	/**
+	 * <h3>Metodo que devuelve un listado de items</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : EntMochila
+	 */
 	public static LinkedList<Integer> dameListadoItems(EntMochila mochila){
 		LinkedList<Integer> listadoItems = new LinkedList<>();
 		listadoItems.add(mochila.getItem1());
@@ -104,6 +151,11 @@ public class EntMochila implements Serializable{
 		return new LinkedList<Integer>(listadoItems);
 	}
 	
+	/**
+	 * <h3>Metodo que carga la mochila desde un listado de items</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : EntMochila
+	 */
 	public static EntMochila cargarListadoEnMochila(PaquetePersonaje personaje, LinkedList<Integer> listadoItems) {
 		EntMochila mochila = new EntMochila();
 		mochila.setIdMochila(personaje.getId());
@@ -131,6 +183,14 @@ public class EntMochila implements Serializable{
 		return mochila;
 	}
 	
+	
+	/**
+	 * <h3>Metodo para actualizar la mochila</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : EntMochila
+	 * @return idPersonajeNuevo
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static void actualizarMochila(Acceso acceso, EntMochila mochila) {
 		Session session = acceso.getFabrica().openSession();
 		session.beginTransaction();
@@ -145,11 +205,24 @@ public class EntMochila implements Serializable{
 		}
 	}
 	
+	/**
+	 * <h3>Metodo para cargar la mochila desde un personaje</h3>
+	 * @param conexion : Acceso 
+	 * @return EntMochila
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static EntMochila cargarMochila(PaquetePersonaje personaje) {
 		EntMochila mochila = new EntMochila(personaje);
 		return mochila;
 	}
 	
+	
+	/**
+	 * <h3>Metodo para obtener una mochila de la BD</h3>
+	 * @param conexion : Acceso 
+	 * @return EntMochila
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static EntMochila dameMochila(Acceso acceso, int idMochila) {
 		Session session = acceso.getFabrica().openSession();
 		EntMochila moc = (EntMochila) session.createQuery( 
@@ -159,6 +232,12 @@ public class EntMochila implements Serializable{
 		return moc;
 	}
 	
+	/**
+	 * <h3>Metodo para asignar una mochila a un personaje</h3>
+	 * @param conexion : Acceso 
+	 * @return true / false
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static boolean asignarMochila(Acceso conexion, int idMochila) {
 		EntMochila moc = new EntMochila(idMochila);
 		Session session = conexion.getFabrica().openSession();

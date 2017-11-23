@@ -80,12 +80,6 @@ public class TestConector {
 		System.out.println(ent);
 	}
 	
-	@Test
-	public void probarObtenerIdPersonaje() {
-		int idPersonaje = EntRegistro.obtenerIdPersonaje(acceso);
-		System.out.println(idPersonaje);
-	}
-	
 	
 	@Test
 	public void probarGuardarRegistro() {

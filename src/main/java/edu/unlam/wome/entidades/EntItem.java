@@ -8,6 +8,40 @@ import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.List;
 
+
+/**
+ * <h2>Mapa de la tabla item de la base de datos</h2>
+ * <h3>Atributos</h3>
+ * <ul>
+ * 		<li>idPersonaje : int</li>
+ * 		<li>idInventario : int</li>
+ * 		<li>idMochila : int</li>
+ * 		<li>casta : String</li>
+ * 		<li>raza : String</li>
+ * 		<li>fuerza : int</li>
+ * 		<li>destreza : int</li>
+ * 		<li>inteligencia : int</li>
+ * 		<li>saludTope : int</li>
+ * 		<li>energiaTope : int</li>
+ * 		<li>nombre : String</li>
+ * 		<li>experiencia : int</li>
+ * 		<li>nivel : int</li>
+ * 		<li>idAlianza : int</li>
+ * </ul>
+ * <h3>Metodos Estàticos</h3>
+ * <ul>
+ * 		<li>private static int registrar(Acceso conexion, EntPersonaje ent)  : true / false</li>
+ * 		<li>private static void actualizar(Acceso conexion, EntPersonaje ent) : void</li>
+ * 		<li>public static int actualizarPersonaje(Acceso acceso, PaquetePersonaje paquetePersonaje, int idInventarioMochila):</li>
+ * 		<li>public static EntPersonaje damePersonaje(Acceso acceso, int idPersonaje)  : </li>
+ * </ul>
+ * <h3>Metodos</h3>
+ * <ul>
+ * 		<li>Accesos getter and setter</li>
+ * </ul>
+ * @see hibernate.cfg.xml
+ * @see personaje.hbm.xml
+ */
 public class EntItem implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -40,22 +74,6 @@ public class EntItem implements Serializable{
 		session.close();
 		return ent;
 	}
-	
-	public static HashMap<String, Object> dameListadoAtributos(EntItem item){
-		HashMap<String, Object> listadoAtributos = new HashMap<>();
-		listadoAtributos.put("idItem", item.getIdItem());
-		listadoAtributos.put("nombre", item.getNombre());
-		listadoAtributos.put("wereable", item.getWereable());
-		listadoAtributos.put("bonusSalud", item.getBonusSalud());
-		listadoAtributos.put("bonusEnergia", item.getBonusEnergia());
-		listadoAtributos.put("bonusFuerza", item.getBonusFuerza());
-		listadoAtributos.put("bonusDestreza", item.getBonusDestreza());
-		listadoAtributos.put("bonusInteligencia", item.getBonusInteligencia());
-		listadoAtributos.put("foto", item.getFoto());
-		listadoAtributos.put("fotoEquipado", item.getFotoEquipado());
-		return new HashMap<String, Object>(listadoAtributos);
-	}
-	
 	
 	public int getIdItem() {
 		return idItem;

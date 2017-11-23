@@ -7,6 +7,39 @@ import org.hibernate.Session;
 
 import edu.unlam.wome.mensajeria.PaquetePersonaje;
 
+/**
+ * <h2>Mapa de la tabla personaje de la base de datos</h2>
+ * <h3>Atributos</h3>
+ * <ul>
+ * 		<li>idPersonaje : int</li>
+ * 		<li>idInventario : int</li>
+ * 		<li>idMochila : int</li>
+ * 		<li>casta : String</li>
+ * 		<li>raza : String</li>
+ * 		<li>fuerza : int</li>
+ * 		<li>destreza : int</li>
+ * 		<li>inteligencia : int</li>
+ * 		<li>saludTope : int</li>
+ * 		<li>energiaTope : int</li>
+ * 		<li>nombre : String</li>
+ * 		<li>experiencia : int</li>
+ * 		<li>nivel : int</li>
+ * 		<li>idAlianza : int</li>
+ * </ul>
+ * <h3>Metodos Estàticos</h3>
+ * <ul>
+ * 		<li>private static int registrar(Acceso conexion, EntPersonaje ent)  : true / false</li>
+ * 		<li>private static void actualizar(Acceso conexion, EntPersonaje ent) : void</li>
+ * 		<li>public static int actualizarPersonaje(Acceso acceso, PaquetePersonaje paquetePersonaje, int idInventarioMochila):</li>
+ * 		<li>public static EntPersonaje damePersonaje(Acceso acceso, int idPersonaje)  : </li>
+ * </ul>
+ * <h3>Metodos</h3>
+ * <ul>
+ * 		<li>Accesos getter and setter</li>
+ * </ul>
+ * @see hibernate.cfg.xml
+ * @see personaje.hbm.xml
+ */
 public class EntPersonaje implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -27,8 +60,10 @@ public class EntPersonaje implements Serializable{
 	private int idAlianza;
 	
 	
-	
+	/**Contructor por defecto*/
 	public EntPersonaje(){}
+	
+	
 	public EntPersonaje(PaquetePersonaje paquetePersonaje) {
 		this.casta = paquetePersonaje.getCasta();
 		this.raza = paquetePersonaje.getRaza();
@@ -49,6 +84,13 @@ public class EntPersonaje implements Serializable{
 	}
 	
 	
+	/**
+	 * <h3>Metodo para guardar un personaje nuevo en la base de datos</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : EntPersonaje
+	 * @return idPersonajeNuevo
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	private static int registrar(Acceso conexion, EntPersonaje ent) {
 		Session session = conexion.getFabrica().openSession();
 		session.beginTransaction();
@@ -65,6 +107,12 @@ public class EntPersonaje implements Serializable{
 		return ent.getIdPersonaje();
 	}
 	
+	/**
+	 * <h3>Metodo para actualizar un personaje en la base de datos</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : EntPersonaje
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	private static void actualizar(Acceso conexion, EntPersonaje ent){
 		Session session = conexion.getFabrica().openSession();
 		session.beginTransaction();
@@ -87,6 +135,12 @@ public class EntPersonaje implements Serializable{
 	}
 	
 	
+	/**
+	 * <h3>Metodo para intermedio para registrar personaje un personaje en la base de datos</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : PaquetePersonaje
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static int registrarPersonaje(Acceso conexion, PaquetePersonaje paquetePersonaje) {
 		EntPersonaje personaje = cargarPaquete(paquetePersonaje);
 		personaje.setIdMochila(-1);
@@ -94,6 +148,12 @@ public class EntPersonaje implements Serializable{
 		return registrar(conexion, personaje);
 	}
 	
+	/**
+	 * <h3>Metodo para intermedio para actualizar personaje un personaje en la base de datos</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : PaquetePersonaje
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static int actualizarPersonaje(Acceso acceso, PaquetePersonaje paquetePersonaje) {
 		EntPersonaje ent = cargarPaquete(paquetePersonaje);
 		ent.setIdPersonaje(paquetePersonaje.getId());
@@ -101,6 +161,12 @@ public class EntPersonaje implements Serializable{
 		return paquetePersonaje.getId();
 	}
 	
+	/**
+	 * <h3>Metodo para intermedio para actualizar personaje con el idPersonajeNuevo un personaje en la base de datos</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : PaquetePersonaje
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static int actualizarPersonaje(Acceso acceso, PaquetePersonaje paquetePersonaje, int idInventarioMochila) {
 		EntPersonaje ent = cargarPaquete(paquetePersonaje);
 		ent.setIdInventario(idInventarioMochila);
@@ -110,6 +176,12 @@ public class EntPersonaje implements Serializable{
 		return paquetePersonaje.getId();
 	}
 
+	/**
+	 * <h3>Devuelve un personaje de la bd</h3>
+	 * @param conexion : Acceso 
+	 * @param ent : PaquetePersonaje id a buscar
+	 * @see edu.unlam.wome.entidades.Acceso
+	 */
 	public static EntPersonaje damePersonaje(Acceso acceso, int idPersonaje) {
 		Session session = acceso.getFabrica().openSession();
 		EntPersonaje e = (EntPersonaje) session.createQuery(

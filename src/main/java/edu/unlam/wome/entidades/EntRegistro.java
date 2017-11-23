@@ -8,13 +8,44 @@ import org.hibernate.Session;
 
 import edu.unlam.wome.mensajeria.PaqueteUsuario;
 
+
+/**
+ * <h2>Mapa de la tabla <b>registro</b> de la base de datos</h2>
+ * <h3>Atributos</h3>
+ * <ul>
+ * 		<li>usuario : String</li>
+ * 		<li>password : String</li>
+ * 		<li>idPersonaje : int</li>
+ * </ul>
+ * <h3>Metodos Estàticos</h3>
+ * <ul>
+ * 		<li>public static boolean guardar(Acceso acceso, PaqueteUsuario user)  : true / false</li>
+ * 		<li>public static void actualizar(Acceso acceso, PaqueteUsuario user, int idPersonaje) : void</li>
+ * 		<li>public static EntRegistro dameUsuario(Acceso acceso, PaqueteUsuario paqueteUsuario)  : EntRegistro</li>
+ * 		<li>public static boolean login(Acceso acceso, PaqueteUsuario paqueteUsuario) : true / false</li>
+ * </ul>
+ * <h3>Metodos</h3>
+ * <ul>
+ * 		<li>Accesos getter and setter</li>
+ * </ul>
+ * @see hibernate.cfg.xml
+ * @see registro.hbm.xml
+ */
 public class EntRegistro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	/** Atributo ID usuario*/
 	private String usuario;
+	
+	/** Atributo password*/
 	private String password;
+	
+	/** Atributo idPersonaje*/
 	private int idPersonaje;
 	
+	
+	/** Constructor por defecto necesario para el correcto mapeo de las tablas de la BD*/
 	public EntRegistro(){
 		
 	}
@@ -25,6 +56,14 @@ public class EntRegistro implements Serializable{
 		this.idPersonaje = idPersonaje;
 	}
 	
+	/**
+	 * <h3>Metodo para guardar un registro nuevo en la base de datos</h3>
+	 * @param acceso : Acceso 
+	 * @param user : PaqueteUsuario
+	 * @return <ul><li>true</li><li>false</li></ul>
+	 * @see edu.unlam.wome.entidades.Acceso
+	 * @see edu.unlam.wome.entidades.PaqueteUsuario
+	 */
 	public static boolean guardar(Acceso acceso, PaqueteUsuario user) {
 		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), 0);
 		Session session = acceso.getFabrica().openSession();
@@ -42,6 +81,14 @@ public class EntRegistro implements Serializable{
 		return reg != null;
 	}
 	
+	/**
+	 * <h3>Metodo para actualizar el idPersonaje la base de datos</h3>
+	 * @param acceso : Acceso 
+	 * @param user : PaqueteUsuario
+	 * @param idPersonaje : int
+	 * @see edu.unlam.wome.entidades.Acceso
+	 * @see edu.unlam.wome.entidades.PaqueteUsuario
+	 */
 	public static void actualizar(Acceso acceso, PaqueteUsuario user, int idPersonaje) {
 		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), idPersonaje);
 		Session session = acceso.getFabrica().openSession();
@@ -58,6 +105,13 @@ public class EntRegistro implements Serializable{
 	}
 	
 	
+	/**
+	 * <h3>Metodo para obtener un usuario de la tabla registro</h3>
+	 * @param acceso : Acceso 
+	 * @param user : PaqueteUsuario
+	 * @see edu.unlam.wome.entidades.Acceso
+	 * @see edu.unlam.wome.entidades.PaqueteUsuario
+	 */
 	public static EntRegistro dameUsuario(Acceso acceso, PaqueteUsuario paqueteUsuario) {
 		Session session = acceso.getFabrica().openSession();
 		EntRegistro e = (EntRegistro) session.createQuery(
@@ -66,14 +120,13 @@ public class EntRegistro implements Serializable{
 		return e;
 	}
 	
-	public static int obtenerIdPersonaje(Acceso acceso) {
-		Session session = acceso.getFabrica().openSession();
-		int idPersonaje = (int) session.createQuery("SELECT MAX(idPersonaje) AS id FROM EntPersonaje").uniqueResult();
-		session.close();
-		return idPersonaje;
-	}
-	
-	
+	/**
+	 * <h3>Metodo para validar el acceso de los usuarios al juego</h3>
+	 * @param acceso : Acceso 
+	 * @param user : PaqueteUsuario
+	 * @see edu.unlam.wome.entidades.Acceso
+	 * @see edu.unlam.wome.entidades.PaqueteUsuario
+	 */
 	public static boolean login(Acceso acceso, PaqueteUsuario paqueteUsuario) {
 		Session session = acceso.getFabrica().openSession();
 		EntRegistro ent = (EntRegistro) session.createQuery(
