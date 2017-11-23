@@ -1,11 +1,5 @@
 package edu.unlam.wome.servidor;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
-
-import edu.unlam.wome.dominio.main.Personaje;
 import edu.unlam.wome.entidades.Acceso;
 import edu.unlam.wome.entidades.EntInventario;
 import edu.unlam.wome.entidades.EntItem;
@@ -14,14 +8,18 @@ import edu.unlam.wome.entidades.EntPersonaje;
 import edu.unlam.wome.entidades.EntRegistro;
 import edu.unlam.wome.mensajeria.PaquetePersonaje;
 import edu.unlam.wome.mensajeria.PaqueteUsuario;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class Conector {
-
-	private Acceso acceso; 
-
-	public void connect() {
-		acceso = new Acceso("hibernate.cfg.xml");
-		Servidor.log.append("Estableciendo conexión con la base de datos..." + System.lineSeparator());
+  private Acceso acceso; 
+  
+  /** Metodo para conectar la aplicacion con la BD */
+  public void connect() {
+	acceso = new Acceso("hibernate.cfg.xml");
+	Servidor.log.append(
+		"Estableciendo conexión con la base de datos..." + System.lineSeparator());
 	}
 
 	public void close() {
@@ -84,6 +82,7 @@ public class Conector {
 			EntMochila mochila = EntMochila.dameMochila(acceso, paquetePersonaje.getId());
 			paquetePersonaje.eliminarItems();
 			LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
+			paquetePersonaje.eliminarItems();
 			while(j < 9) {
 				//paquetePersonaje.eliminarItems();
 				if(listadoItems.get(i) != -1) {

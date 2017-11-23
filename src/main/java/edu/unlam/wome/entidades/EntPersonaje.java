@@ -11,39 +11,38 @@ import edu.unlam.wome.mensajeria.PaquetePersonaje;
  * <h2>Mapa de la tabla personaje de la base de datos</h2>
  * <h3>Atributos</h3>
  * <ul>
- * 		<li>idPersonaje : int</li>
- * 		<li>idInventario : int</li>
- * 		<li>idMochila : int</li>
- * 		<li>casta : String</li>
- * 		<li>raza : String</li>
- * 		<li>fuerza : int</li>
- * 		<li>destreza : int</li>
- * 		<li>inteligencia : int</li>
- * 		<li>saludTope : int</li>
- * 		<li>energiaTope : int</li>
- * 		<li>nombre : String</li>
- * 		<li>experiencia : int</li>
- * 		<li>nivel : int</li>
- * 		<li>idAlianza : int</li>
+ *<li>idPersonaje : int</li>
+ *<li>idInventario : int</li>
+ *<li>idMochila : int</li>
+ *<li>casta : String</li>
+ *<li>raza : String</li>
+ *<li>fuerza : int</li>
+ *<li>destreza : int</li>
+ *<li>inteligencia : int</li>
+ *<li>saludTope : int</li>
+ *<li>energiaTope : int</li>
+ *<li>nombre : String</li>
+ *<li>experiencia : int</li>
+ *<li>nivel : int</li>
+ *<li>idAlianza : int</li>
  * </ul>
  * <h3>Metodos Estàticos</h3>
  * <ul>
- * 		<li>private static int registrar(Acceso conexion, EntPersonaje ent)  : true / false</li>
- * 		<li>private static void actualizar(Acceso conexion, EntPersonaje ent) : void</li>
- * 		<li>public static int actualizarPersonaje(Acceso acceso, PaquetePersonaje paquetePersonaje, int idInventarioMochila):</li>
- * 		<li>public static EntPersonaje damePersonaje(Acceso acceso, int idPersonaje)  : </li>
+ * <li>private static int registrar(Acceso conexion, EntPersonaje ent)  : true / false</li>
+ * <li>private static void actualizar(Acceso conexion, EntPersonaje ent) : void</li>
+ * <li>public static int actualizarPersonaje(Acceso acceso,PaquetePersonaje paquetePersonaje,int idInventarioMochila)</li>
+ * <li>public static EntPersonaje damePersonaje(Acceso acceso, int idPersonaje)  : </li>
  * </ul>
  * <h3>Metodos</h3>
  * <ul>
- * 		<li>Accesos getter and setter</li>
+ * <li>Accesos getter and setter</li>
  * </ul>
  * @see hibernate.cfg.xml
  * @see personaje.hbm.xml
  */
-public class EntPersonaje implements Serializable{
+public class EntPersonaje implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 	private int idPersonaje;
 	private int idInventario;
 	private int idMochila;
