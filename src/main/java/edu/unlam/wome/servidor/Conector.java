@@ -39,7 +39,6 @@ public class Conector {
 	public boolean registrarPersonaje(PaquetePersonaje paquetePersonaje, PaqueteUsuario paqueteUsuario) {
 		EntRegistro entRegistro = EntRegistro.dameUsuario(acceso, paqueteUsuario);
 		paquetePersonaje.setId(entRegistro.getIdPersonaje());
-		System.out.println(paquetePersonaje.getId());
 		int idPersonaje = EntPersonaje.registrarPersonaje(acceso, paquetePersonaje);
 		if(idPersonaje != -1) {
 			paqueteUsuario.setIdPj(idPersonaje);
