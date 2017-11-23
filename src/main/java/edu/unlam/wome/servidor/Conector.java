@@ -1,6 +1,7 @@
 package edu.unlam.wome.servidor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -84,6 +85,7 @@ public class Conector {
 			paquetePersonaje.eliminarItems();
 			LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
 			while(j < 9) {
+				paquetePersonaje.eliminarItems();
 				if(listadoItems.get(i) != -1) {
 					EntItem item = EntItem.dameItem(acceso, listadoItems.get(i));
 					paquetePersonaje.anadirItem(
@@ -117,7 +119,7 @@ public class Conector {
 		pa.setNombre(personaje.getNombre());
 		pa.setExperiencia(personaje.getExperiencia());
 		pa.setNivel(personaje.getNivel());
-		
+		pa.setItems(new ArrayList<>());
 		while(j < 9) {
 			if(listadoItems.get(i) != -1) {
 				EntItem item = EntItem.dameItem(acceso,listadoItems.get(i) );
@@ -160,7 +162,7 @@ public class Conector {
 		if(paquetePersonaje.getCantItems() < 9) {
 			int itemGanado = new Random().nextInt(29);
 			itemGanado += 1;
-			listadoItems.add(paquetePersonaje.getCantItems() + 1, itemGanado);
+			listadoItems.addLast(itemGanado);
 			for(int  i = paquetePersonaje.getCantItems() + 2; i < 21; i++) 
 				listadoItems.addLast(-1);
 		}else 
