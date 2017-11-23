@@ -37,6 +37,9 @@ public class Conector {
 	}
 
 	public boolean registrarPersonaje(PaquetePersonaje paquetePersonaje, PaqueteUsuario paqueteUsuario) {
+		EntRegistro entRegistro = EntRegistro.dameUsuario(acceso, paqueteUsuario);
+		paquetePersonaje.setId(entRegistro.getIdPersonaje());
+		System.out.println(paquetePersonaje.getId());
 		int idPersonaje = EntPersonaje.registrarPersonaje(acceso, paquetePersonaje);
 		if(idPersonaje != -1) {
 			paqueteUsuario.setIdPj(idPersonaje);
@@ -101,7 +104,8 @@ public class Conector {
 		int i = 0;
 		int j = 0;
 		
-		EntPersonaje personaje = EntPersonaje.damePersonaje(acceso, EntRegistro.dameUsuario(acceso, user).getIdPersonaje());
+		EntPersonaje personaje = EntPersonaje.damePersonaje(
+				acceso, EntRegistro.dameUsuario(acceso, user).getIdPersonaje() - 1);
 		EntMochila mochila = EntMochila.dameMochila(acceso, personaje.getIdPersonaje());
 		LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
 		
@@ -173,12 +177,8 @@ public class Conector {
 	}
 
 	public void actualizarPersonajeSubioNivel(PaquetePersonaje paquetePersonaje) {
-		if(EntPersonaje.actualizarPersonaje(acceso, paquetePersonaje, paquetePersonaje.getId()) != -1) {
+		EntPersonaje.actualizarPersonaje(acceso, paquetePersonaje, paquetePersonaje.getId());
 			Servidor.log.append("El personaje " + paquetePersonaje.getNombre() + 
 					" se ha actualizado con éxito."  + System.lineSeparator());
-		}else {
-			Servidor.log.append("Fallo al intentar actualizar el personaje " + 
-					paquetePersonaje.getNombre()  + System.lineSeparator());
-		}
 	}
 }

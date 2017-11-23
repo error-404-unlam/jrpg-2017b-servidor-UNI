@@ -42,20 +42,27 @@ public class EntRegistro implements Serializable{
 		return e;
 	}
 	
+	public static int obtenerIdPersonaje(Acceso acceso) {
+		Session session = acceso.getFabrica().openSession();
+		int idPersonaje = (int) session.createQuery("SELECT MAX(idPersonaje) AS id FROM EntPersonaje").uniqueResult();
+		session.close();
+		return idPersonaje + 1;
+	}
+	
 	public static boolean registrarUsuario(Acceso conexion, PaqueteUsuario user)  {
+		int idPersonaje = obtenerIdPersonaje(conexion);
+		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), idPersonaje);
+		
 		Session session = conexion.getFabrica().openSession();
 		session.beginTransaction();
-		EntRegistro reg = new EntRegistro(user.getUsername(), user.getPassword(), user.getIdPj());
-		if(!existe(conexion, reg)) {
-			session.close();
-			return false;
-		}
+		
 		try {
+			session.flush();
 			session.saveOrUpdate(reg);
+			session.flush();
 			session.getTransaction().commit();
 		} catch (HibernateException | SecurityException e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			session.close();
 		}

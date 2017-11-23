@@ -149,7 +149,7 @@ public class TestConector {
 	
 	@Test
 	public void probarEntidadRegistro() {
-		assertEquals(false, EntRegistro.registrarUsuario(acceso, new PaqueteUsuario(155,"dfdsfsdsd", "232323")));
+		assertEquals(false, EntRegistro.registrarUsuario(acceso, new PaqueteUsuario(155,"FedeTest", "232323")));
 	}
 	
 //	@Test
@@ -222,5 +222,11 @@ public class TestConector {
 	public void probarDamePersonaje() {
 		EntPersonaje ent = EntPersonaje.damePersonaje(acceso,2);
 		System.out.println(ent);
+	}
+	
+	@Test
+	public void probarObtenerIdPersonaje() {
+		int idPersonaje = EntRegistro.obtenerIdPersonaje(acceso);
+		System.out.println(idPersonaje);
 	}
 }
