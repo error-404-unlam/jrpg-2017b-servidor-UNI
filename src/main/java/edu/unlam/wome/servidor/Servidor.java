@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JTextArea;
 import edu.unlam.wome.mensajeria.PaqueteMensaje;
 import edu.unlam.wome.mensajeria.PaqueteMovimiento;
 import edu.unlam.wome.mensajeria.PaquetePersonaje;
+import edu.unlam.wome.potenciados.PersonajesPotenciados;
 
 /**
  * Clase Servidor.
@@ -41,7 +43,9 @@ public class Servidor extends Thread {
 	private static Map<Integer, PaquetePersonaje> personajesConectados = new HashMap<>();
 	// Tiene personajes con cliente y NPCs.
 	private static Map<Integer, PaqueteMovimiento> ubicacionPersonajes = new HashMap<>();
-
+	
+	public static LinkedList<PersonajesPotenciados> potenciados = new LinkedList<>(); 
+	
 	private static Thread server;
 
 	private static ServerSocket serverSocket;

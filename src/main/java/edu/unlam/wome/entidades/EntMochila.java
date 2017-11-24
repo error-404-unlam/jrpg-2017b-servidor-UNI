@@ -12,9 +12,9 @@ import edu.unlam.wome.mensajeria.PaquetePersonaje;
  * <h2>Mapa de la tabla mochila de la base de datos</h2>
  * <h3>Atributos</h3>
  * <ul>
- * 		<li>idMochila : int</li>
- * 		<li>item1 : int</li>
- * 		<li>item1 : int</li>
+ * <li>idMochila : int</li>
+ * <li>item1 : int</li>
+ * <li>item1 : int</li>
  * <li>item1 : int</li>
  * <li>item2 : int</li>
  * <li>item3 : int</li>
@@ -38,10 +38,10 @@ import edu.unlam.wome.mensajeria.PaquetePersonaje;
  * </ul>
  * <h3>Metodos Estàticos</h3>
  * <ul>
- * 		<li>public static void actualizarMochila(Acceso acceso, EntMochila mochila)</li>
- * 		<li>public static EntMochila cargarMochila(PaquetePersonaje personaje)</li>
- * 		<li>public static EntMochila dameMochila(Acceso acceso, int idMochila)</li>
- * 		<li>public static boolean asignarMochila(Acceso conexion, int idMochila) </li>
+ *<li>public static void actualizarMochila(Acceso acceso, EntMochila mochila)</li>
+ * <li>public static EntMochila cargarMochila(PaquetePersonaje personaje)</li>
+ * <li>public static EntMochila dameMochila(Acceso acceso, int idMochila)</li>
+ * <li>public static boolean asignarMochila(Acceso conexion, int idMochila) </li>
  * </ul>
  * <h3>Metodos</h3>
  * <ul>

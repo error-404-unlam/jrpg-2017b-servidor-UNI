@@ -16,10 +16,10 @@ public class Conector {
   private Acceso acceso; 
   
   /** Metodo para conectar la aplicacion con la BD */
-  public void connect() {
-	acceso = new Acceso("hibernate.cfg.xml");
-	Servidor.log.append(
-		"Estableciendo conexión con la base de datos..." + System.lineSeparator());
+  	public void connect() {
+  		acceso = new Acceso("hibernate.cfg.xml");
+  		Servidor.log.append(
+  				"Estableciendo conexión con la base de datos..." + System.lineSeparator());
 	}
 
 	public void close() {
@@ -84,7 +84,6 @@ public class Conector {
 			LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
 			paquetePersonaje.eliminarItems();
 			while(j < 9) {
-				//paquetePersonaje.eliminarItems();
 				if(listadoItems.get(i) != -1) {
 					EntItem item = EntItem.dameItem(acceso, listadoItems.get(i));
 					paquetePersonaje.anadirItem(
@@ -118,8 +117,6 @@ public class Conector {
 		pa.setNombre(personaje.getNombre());
 		pa.setExperiencia(personaje.getExperiencia());
 		pa.setNivel(personaje.getNivel());
-		
-		//pa.setItems(new ArrayList<>());
 		while(j < 9) {
 			if(listadoItems.get(i) != -1) {
 				EntItem item = EntItem.dameItem(acceso,listadoItems.get(i) );
