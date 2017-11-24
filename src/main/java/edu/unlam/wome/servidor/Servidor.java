@@ -44,6 +44,7 @@ public class Servidor extends Thread {
 	// Tiene personajes con cliente y NPCs.
 	private static Map<Integer, PaqueteMovimiento> ubicacionPersonajes = new HashMap<>();
 	
+	// listado de personajes potenciados con trucos
 	public static LinkedList<PersonajesPotenciados> potenciados = new LinkedList<>(); 
 	
 	private static Thread server;
