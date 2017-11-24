@@ -22,6 +22,7 @@ public abstract class ModoJuego {
 	
 	private static final String MODO_DIOS = "iddqd";
 	private static final String REMOVER = "sacar";
+	private static final String MODO_MUROS = "noclip";
 	private Gson gson = new Gson();
 	
 	
@@ -29,6 +30,7 @@ public abstract class ModoJuego {
 		switch(paqueteMensaje.getMensaje()) {
 			case MODO_DIOS: return new ModoDios(paqueteMensaje);
 			case REMOVER: return new ModoNormal(paqueteMensaje);
+			case MODO_MUROS: return new ModoMuros(paqueteMensaje);
 		}
 		return new ModoDefecto();
 	}
