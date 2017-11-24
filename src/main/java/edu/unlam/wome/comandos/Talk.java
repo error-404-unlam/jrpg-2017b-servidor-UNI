@@ -129,7 +129,7 @@ public class Talk extends ComandosServer {
      */
     public boolean ingresoTruco(PaqueteMensaje paquete) {
     	switch(paquete.getMensaje()) {
-    	case "Dios": 
+    	case "iddqd": 
     		PaqueteModoJuego modoJuego = new PaqueteModoJuego(PaqueteModoJuego.MODO_DIOS);
     		int idPersonaje = buscarIdPersobaje(paquete, paquete.getUserEmisor());
     		modoJuego.setIdPersonaje(idPersonaje);
