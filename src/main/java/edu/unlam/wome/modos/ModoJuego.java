@@ -25,12 +25,13 @@ public abstract class ModoJuego {
 	public ModoJuego seleccion(PaqueteMensaje paqueteMensaje) {
 		switch(paqueteMensaje.getMensaje()) {
 			case "iddqd": return new ModoDios(paqueteMensaje);
+			case "sacar": return new ModoNormal(paqueteMensaje);
 		}
 		return new ModoDefecto();
 	}
 	
 	public abstract boolean actualizar();
-	
+	public abstract String dameMensaje();
 	
 	/**
      * Devuelve el id del personaje que realizo el truco
@@ -74,10 +75,10 @@ public abstract class ModoJuego {
      * Envia el mensaje al 
      * @param paqueteMensaje
      */
-	public void enviarMensaje(PaqueteMensaje paqueteMensaje) {
+	public void enviarMensaje(PaqueteMensaje paqueteMensaje, String mje) {
     	int idUser= 0;
     	paqueteMensaje.setComando(Comando.TALK);
-    	paqueteMensaje.setMensaje("El Truco fue aprobado");
+    	paqueteMensaje.setMensaje(mje);
         idUser = buscarIdPersobaje(paqueteMensaje, paqueteMensaje.getUserEmisor());
         for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
             if (conectado.getIdPersonaje() == idUser) {
@@ -100,7 +101,7 @@ public abstract class ModoJuego {
 	public PaqueteModoJuego configurarPaquete(int idPersonaje, int modo) {
 		PaqueteModoJuego paqueteModoJuego = new PaqueteModoJuego();
 		paqueteModoJuego.setIdPersonaje(idPersonaje);
-		paqueteModoJuego.setModo(PaqueteModoJuego.MODO_DIOS);
+		paqueteModoJuego.setModo(modo);
 		return paqueteModoJuego;
 	}
 	

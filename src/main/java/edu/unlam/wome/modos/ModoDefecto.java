@@ -10,4 +10,9 @@ public class ModoDefecto extends ModoJuego{
 	public boolean actualizar() {
 		return false;
 	}
+
+	@Override
+	public String dameMensaje() {
+		return "";
+	}
 }
