@@ -82,11 +82,12 @@ public class Talk extends ComandosServer {
         return false;
     }
     
-    public int buscarIdPersobaje(PaqueteMensaje paqueteMensaje) {
+    public int buscarIdPersobaje(PaqueteMensaje paqueteMensaje, int modoJuego) {
     	int idUser = 0;
     	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
             if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
                 idUser = personaje.getValue().getId();
+                Servidor.getPersonajesConectados().get(idUser).setModoJuego(modoJuego);
                 return idUser;
             }
         }
@@ -98,7 +99,7 @@ public class Talk extends ComandosServer {
     	switch(paquete.getMensaje()) {
     	case "Dios": 
     		PaqueteModoJuego modoJuego = new PaqueteModoJuego(PaqueteModoJuego.MODO_DIOS);
-    		int idPersonaje = buscarIdPersobaje(paquete);
+    		int idPersonaje = buscarIdPersobaje(paquete, PaqueteModoJuego.MODO_DIOS);
     		modoJuego.setIdPersonaje(idPersonaje);
     		modoJuego.setComando(Comando.ACTUALIZAR_MODO_JUEGO);
     		Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
