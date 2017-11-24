@@ -25,7 +25,13 @@ public class ModoDios extends ModoJuego{
 		int idPersonaje = buscarIdPersobaje(paqueteMensaje, paqueteMensaje.getUserEmisor());
 		PaqueteModoJuego paqueteModoJuego = configurarPaquete(idPersonaje, PaqueteModoJuego.MODO_DIOS);
 		actualizarModoJuegoAlJugador(idPersonaje, paqueteModoJuego);
-		Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
+		int indice = Servidor.potenciados.indexOf(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
+		if(indice == -1)
+			Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
+		else {
+			Servidor.potenciados.remove(indice);
+			Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
+		}
 		enviarMensaje(paqueteMensaje, dameMensaje());
 		return actualizarPotenciasdosATodos(paqueteMensaje, paqueteModoJuego);	
 		
