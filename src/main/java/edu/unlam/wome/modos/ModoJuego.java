@@ -19,13 +19,16 @@ import edu.unlam.wome.servidor.Servidor;
  *
  */
 public abstract class ModoJuego {
+	
+	private static final String MODO_DIOS = "iddqd";
+	private static final String REMOVER = "sacar";
 	private Gson gson = new Gson();
 	
 	
 	public ModoJuego seleccion(PaqueteMensaje paqueteMensaje) {
 		switch(paqueteMensaje.getMensaje()) {
-			case "iddqd": return new ModoDios(paqueteMensaje);
-			case "sacar": return new ModoNormal(paqueteMensaje);
+			case MODO_DIOS: return new ModoDios(paqueteMensaje);
+			case REMOVER: return new ModoNormal(paqueteMensaje);
 		}
 		return new ModoDefecto();
 	}
