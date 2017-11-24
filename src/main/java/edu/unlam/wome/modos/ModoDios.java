@@ -13,9 +13,12 @@ import edu.unlam.wome.potenciados.PersonajesPotenciados;
 import edu.unlam.wome.servidor.EscuchaCliente;
 import edu.unlam.wome.servidor.Servidor;
 
+
 public class ModoDios extends ModoJuego{
 	private PaqueteMensaje paqueteMensaje;
 	private Gson gson = new Gson();
+	
+	
 	public ModoDios(PaqueteMensaje paqueteMensaje) {
 		this.paqueteMensaje = paqueteMensaje;
 	}
@@ -26,7 +29,6 @@ public class ModoDios extends ModoJuego{
 		int idPersonaje = buscarIdPersobaje(paqueteMensaje, paqueteMensaje.getUserEmisor());
 		PaqueteModoJuego paqueteModoJuego = configurarPaquete(idPersonaje);
 		actualizarModoJuegoAlJugador(idPersonaje, paqueteModoJuego);
-		paqueteModoJuego.setComando(Comando.ACTUALIZAR_MODO_JUEGO);
 		Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
 		enviarMensaje(paqueteMensaje);
 		return actualizarPotenciasdosATodos(paqueteMensaje, paqueteModoJuego);	
@@ -57,12 +59,14 @@ public class ModoDios extends ModoJuego{
      * @return true /  false
      */
 	public boolean actualizarPotenciasdosATodos(PaqueteMensaje paqueteMensaje, PaqueteModoJuego paqueteModoJuego) {
-        for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+		paqueteModoJuego.setComando(Comando.ACTUALIZAR_MODO_JUEGO);
+		for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
               try {
                    conectado.getSalida().writeObject(gson.toJson(paqueteModoJuego));
                } catch (IOException e) {
                     Servidor.getLog().append(
                             "Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
+                    return false;
                }
         }
         return true;
@@ -93,7 +97,7 @@ public class ModoDios extends ModoJuego{
 	private PaqueteModoJuego configurarPaquete(int idPersonaje) {
 		PaqueteModoJuego paqueteModoJuego = new PaqueteModoJuego();
 		paqueteModoJuego.setIdPersonaje(idPersonaje);
-		paqueteModoJuego.setComando(PaqueteModoJuego.MODO_DIOS);
+		paqueteModoJuego.setModo(PaqueteModoJuego.MODO_DIOS);
 		return paqueteModoJuego;
 	}
 	
