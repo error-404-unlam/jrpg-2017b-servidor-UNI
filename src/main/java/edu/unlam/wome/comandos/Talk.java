@@ -25,16 +25,13 @@ public class Talk extends ComandosServer {
     public void ejecutar() {
         int idUser = 0;
         PaqueteMensaje paqueteMensaje = (PaqueteMensaje) (getGson().fromJson(getCadenaLeida(), PaqueteMensaje.class));
-        
+       
+        if(ingresoTruco(paqueteMensaje))
+        	return;
         if (!(paqueteMensaje.getUserReceptor() == null)) {
         	if (Servidor.mensajeAUsuario(paqueteMensaje)) {
                 paqueteMensaje.setComando(Comando.TALK);
-                for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
-                    if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserReceptor())) {
-                        idUser = personaje.getValue().getId();
-                    }
-                }
-
+                idUser = buscarIdPersobaje(paqueteMensaje, paqueteMensaje.getUserReceptor());
                 for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
                     if (conectado.getIdPersonaje() == idUser) {
                         try {
@@ -67,7 +64,27 @@ public class Talk extends ComandosServer {
             
             Servidor.mensajeAAll();
         }
-        ingresoTruco(paqueteMensaje);
+    }
+    
+    /**
+     * Envia el mensaje al 
+     * @param paqueteMensaje
+     */
+    public void enviarMensaje(PaqueteMensaje paqueteMensaje) {
+    	int idUser= 0;
+    	paqueteMensaje.setComando(Comando.TALK);
+    	paqueteMensaje.setMensaje("El Truco fue aprobado");
+        idUser = buscarIdPersobaje(paqueteMensaje, paqueteMensaje.getUserEmisor());
+        for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
+            if (conectado.getIdPersonaje() == idUser) {
+                try {
+                    conectado.getSalida().writeObject(getGson().toJson(paqueteMensaje));
+                } catch (IOException e) {
+                    Servidor.getLog().append("Falló al intentar enviar mensaje a:"
+                            + conectado.getPaquetePersonaje().getId() + "\n");
+                }
+            }
+        }
     }
     
     /**
@@ -85,7 +102,7 @@ public class Talk extends ComandosServer {
                             "Falló al intentar enviar mensaje a:" + conectado.getPaquetePersonaje().getId() + "\n");
                }
         }
-        return false;
+        return true;
     }
     
     /**
@@ -94,12 +111,11 @@ public class Talk extends ComandosServer {
      * @param modoJuego
      * @return idUsuario que realizo el truco
      */
-    public int buscarIdPersobaje(PaqueteMensaje paqueteMensaje, int modoJuego) {
+    public int buscarIdPersobaje(PaqueteMensaje paqueteMensaje, String usuarioBuscar) {
     	int idUser = 0;
     	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
-            if (personaje.getValue().getNombre().equals(paqueteMensaje.getUserEmisor())) {
+            if (personaje.getValue().getNombre().equals(usuarioBuscar)) {
                 idUser = personaje.getValue().getId();
-                Servidor.getPersonajesConectados().get(idUser).setModoJuego(modoJuego);
                 return idUser;
             }
         }
@@ -115,10 +131,12 @@ public class Talk extends ComandosServer {
     	switch(paquete.getMensaje()) {
     	case "Dios": 
     		PaqueteModoJuego modoJuego = new PaqueteModoJuego(PaqueteModoJuego.MODO_DIOS);
-    		int idPersonaje = buscarIdPersobaje(paquete, PaqueteModoJuego.MODO_DIOS);
+    		int idPersonaje = buscarIdPersobaje(paquete, paquete.getUserEmisor());
     		modoJuego.setIdPersonaje(idPersonaje);
+    		Servidor.getPersonajesConectados().get(idPersonaje).setModoJuego(modoJuego.getModo());
     		modoJuego.setComando(Comando.ACTUALIZAR_MODO_JUEGO);
     		Servidor.potenciados.add(new PersonajesPotenciados(idPersonaje, PaqueteModoJuego.MODO_DIOS));
+    		enviarMensaje(paquete);
     		return actualizarPotenciasdosATodos(paquete, modoJuego);	
     	}
     	return false;
