@@ -70,6 +70,12 @@ public class Talk extends ComandosServer {
         ingresoTruco(paqueteMensaje);
     }
     
+    /**
+     * Envia a todos los conectados el paquete que contiene al jugador que realizo el truco
+     * @param paqueteMensaje
+     * @param paqueteModoJuego
+     * @return true /  false
+     */
     public boolean actualizarPotenciasdosATodos(PaqueteMensaje paqueteMensaje, PaqueteModoJuego paqueteModoJuego) {
         for (EscuchaCliente conectado : Servidor.getClientesConectados()) {
               try {
@@ -82,6 +88,12 @@ public class Talk extends ComandosServer {
         return false;
     }
     
+    /**
+     * Devuelve el id del personaje que realizo el truco
+     * @param paqueteMensaje
+     * @param modoJuego
+     * @return idUsuario que realizo el truco
+     */
     public int buscarIdPersobaje(PaqueteMensaje paqueteMensaje, int modoJuego) {
     	int idUser = 0;
     	for (Map.Entry<Integer, PaquetePersonaje> personaje : Servidor.getPersonajesConectados().entrySet()) {
@@ -94,8 +106,12 @@ public class Talk extends ComandosServer {
     	return idUser;
     }
     
+    /**
+     * Configura y actualiza el listado de personajes truqueados
+     * @param paquete
+     * @return true / false
+     */
     public boolean ingresoTruco(PaqueteMensaje paquete) {
-    	
     	switch(paquete.getMensaje()) {
     	case "Dios": 
     		PaqueteModoJuego modoJuego = new PaqueteModoJuego(PaqueteModoJuego.MODO_DIOS);
