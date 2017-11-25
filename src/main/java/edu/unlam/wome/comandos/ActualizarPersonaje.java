@@ -27,6 +27,8 @@ public class ActualizarPersonaje extends ComandosServer {
         }
 
         Servidor.getConector().actualizarPersonaje(escuchaCliente.getPaquetePersonaje());
+       
+        
         Servidor.getPersonajesConectados().remove(escuchaCliente.getPaquetePersonaje().getId());
         Servidor.getPersonajesConectados().put(escuchaCliente.getPaquetePersonaje().getId(),
                 escuchaCliente.getPaquetePersonaje());

@@ -104,7 +104,7 @@ public class Conector {
 				acceso, EntRegistro.dameUsuario(acceso, user).getIdPersonaje());
 		EntMochila mochila = EntMochila.dameMochila(acceso, personaje.getIdPersonaje());
 		LinkedList<Integer> listadoItems = EntMochila.dameListadoItems(mochila);
-		
+
 		PaquetePersonaje pa = new PaquetePersonaje();
 		pa.setId(personaje.getIdPersonaje());
 		pa.setRaza(personaje.getRaza());

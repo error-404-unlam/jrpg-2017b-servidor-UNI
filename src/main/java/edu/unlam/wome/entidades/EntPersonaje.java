@@ -73,7 +73,6 @@ public class EntPersonaje implements Serializable {
 		this.energiaTope = paquetePersonaje.getEnergiaTope();
 		this.nombre = paquetePersonaje.getNombre();
 		this.experiencia = 0;
-		this.nivel = 1;
 		this.idAlianza = -1;
 	}
 	
@@ -142,6 +141,7 @@ public class EntPersonaje implements Serializable {
 	 */
 	public static int registrarPersonaje(Acceso conexion, PaquetePersonaje paquetePersonaje) {
 		EntPersonaje personaje = cargarPaquete(paquetePersonaje);
+		personaje.setNivel(1);
 		personaje.setIdMochila(-1);
 		personaje.setIdInventario(-1);
 		return registrar(conexion, personaje);
@@ -171,6 +171,7 @@ public class EntPersonaje implements Serializable {
 		ent.setIdInventario(idInventarioMochila);
 		ent.setIdMochila(idInventarioMochila);
 		ent.setIdPersonaje(idInventarioMochila);
+		ent.setNivel(paquetePersonaje.getNivel());
 		actualizar(acceso, ent);
 		return paquetePersonaje.getId();
 	}
